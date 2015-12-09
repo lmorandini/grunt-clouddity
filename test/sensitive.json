@@ -1,0 +1,44 @@
+{
+  "pkgcloud" : {
+    "availability_zone" : "melbourne-np",
+    "key_name" : "lmorandini",
+    // Installation script of Docker on a bare-bone Ubuntu VM
+    "user_data" : "IyEvYmluL3NoDQpzZXQgLXgNCmVjaG8gInBvc3QtaW5zdGFsbGF0aW9uIHN0YXJ0ZWQuLi4iDQphcHQtZ2V0IHVwZGF0ZQ0KYXB0LWdldCBpbnN0YWxsIGRvY2tlci5pbyAteSAtZg0KdXNlcm1vZCAtYUcgZG9ja2VyIHVidW50dQ0KZWNobyAnRE9DS0VSX09QVFM9Ii1IIHRjcDovLzAuMC4wLjA6MjM3NSAtSCB1bml4Oi8vL3Zhci9ydW4vZG9ja2VyLnNvY2siJyA+PiAvZXRjL2RlZmF1bHQvZG9ja2VyDQpvcGVuc3NsIHNfY2xpZW50IC1zaG93Y2VydHMgLWNvbm5lY3QgZG9ja2VyLmVyZXNlYXJjaC51bmltZWxiLmVkdS5hdTo0NDMgPCAvZGV2L251bGwgMj4gL2Rldi9udWxsIHwgb3BlbnNzbCB4NTA5IC1vdXRmb3JtIFBFTSA+IGVyZXNlYXJjaC5jcnQNCnN1ZG8gY3AgZXJlc2VhcmNoLmNydCAvdXNyL2xvY2FsL3NoYXJlL2NhLWNlcnRpZmljYXRlcw0Kc3VkbyB1cGRhdGUtY2EtY2VydGlmaWNhdGVzDQpzdWRvIHNlcnZpY2UgZG9ja2VyIHN0b3ANCnN1ZG8gc2VydmljZSBkb2NrZXIgc3RhcnQNCmVjaG8gInBvc3QtaW5zdGFsbGF0aW9uIGRvbmUi",
+    "client" : {
+      "authUrl" : "http://test.com",
+      "region" : "Oz",
+      "username" : "test@test.com",
+      "password" : "passwd",
+      "provider" : "openstack",
+      "tenantName" : "A57"
+    }
+  },
+  "docker" : {
+    // Local docker demon used to send Docker commands to the cluster
+    "master" : {
+      "protocol" : "http",
+      "host" : "localhost",
+      "port" : 2375
+    },
+    // Parameters for the Docker clients on the nodes
+    "client" : {
+      "protocol" : "http",
+      "port" : 2375
+    },
+    // Registry parameters where to store and get images
+    "registry" : {
+      "serveraddress" : "docker.test.com",
+      "auth" : {
+        "email" : "test@test.com",
+        "username" : "deployer",
+        "password" : "passwd"
+      }
+    }
+  },
+  "test" : {
+    "auth" : {
+      "username" : "testuser",
+      "password" : "testpasswd"
+    }
+  }
+}
