@@ -11,9 +11,10 @@ module.exports = function(grunt) {
   // Puts all the exported functions of the various modules in commands
   var openstackTasks = require("../lib/openstack");
   var dockerTasks = require("../lib/docker");
-  var commands = _.extend(openstackTasks, dockerTasks);
+  var commands = require("../lib/clouddity");
+//  var commands = _.extend(openstackTasks, dockerTasks);
 
-  // Process the given command with arg.
+  // Processes the given command with arg.
   var processCommand = function(command, options, arg) {
     if (!arg) {
       arg = "default";
@@ -23,7 +24,7 @@ module.exports = function(grunt) {
       grunt.fail.fatal("Command [" + command + "] not found.");
     }
 
-    // Check arg
+    // Checks arg
     if (typeof (commands[command]) !== "function") {
       if (!commands[command][arg]) {
         grunt.fail.fatal("Argument [" + arg + "] for [" + command
@@ -46,26 +47,20 @@ module.exports = function(grunt) {
     };
 
     // Passes clients configuration parameters
-    var pkgcloudClientOptions = grunt.config
-        .get("clusterDeploy.pkgcloud.client");
-    var dockerMasterOptions = grunt.config.get("clusterDeploy.docker.master");
-    var dockerClientOptions = grunt.config.get("clusterDeploy.docker.client");
-
-    func.apply(this, [ grunt, pkgcloudClientOptions, dockerMasterOptions,
-        dockerClientOptions, options, callback, arg ]);
+    func.apply(this, [ grunt, options, callback, arg ]);
   };
 
   // For each command, creates the grunt task
   _.keys(commands).forEach(
       function(command) {
-
-        grunt.task.registerTask("clusterdeploy:" + command, function(arg) {
+console.log(JSON.stringify(command)); // XXX
+        grunt.task.registerTask("clouddity:" + command, function(arg) {
           processCommand.apply(this, [ command,
-              grunt.config.get("clusterdeploy"), arg ]);
+              grunt.config.get("clouddity"), arg ]);
         });
       });
 
-  // Register the Grunt multi task
-  grunt.registerMultiTask("grunt-cluster-deploy",
+  // Registers the Grunt multi task
+  grunt.registerMultiTask("grunt-clouddity",
       "Grunt tasks to deploy on a cluster", processCommand);
 };

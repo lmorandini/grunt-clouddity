@@ -2,7 +2,7 @@
 
 ## Overview 
 
-A framework to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.
+Grunt tasks to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.
 
 Hints:
 https://github.com/creynders/load-grunt-configs/

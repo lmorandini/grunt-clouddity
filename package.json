@@ -1,27 +1,33 @@
 {
-  "name": "A57",
-  "version": "0.1.0-SNAPSHOT",
-  "description": "Framework to make it easier deployong with Docker and PkgCloud",
-  "private": false,
-  "author": {
-    "name": "Luca Morandini",
-    "email": "lmorandini@ieee.org"
+  "name" : "grunt-clouddity",
+  "version" : "0.1.0-SNAPSHOT",
+  "description" : "Grunt tasks to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.",
+  "private" : false,
+  "author" : {
+    "name" : "Luca Morandini",
+    "email" : "lmorandini@ieee.org"
   },
-  "engines": {
-    "node": "= 0.10.0"
+  "engines" : {
+    "node" : "= 0.10.0"
   },
-  "devDependencies": {
-    "async": "1.5.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-copy": "^0.8.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-dock": "git+https://github.com/lmoran/grunt-dock.git#master",
-    "dockedrode": "git+https://github.com/lmoran/dockerode#master",
-    "grunt-ejs": "^0.3.0",
-    "grunt-pkgcloud": "git+https://github.com/lmoran/grunt-pkgcloud#master",
-    "pkgcloud": "git+https://github.com/lmoran/pkgcloud#master",
-    "underscore": "1.8.3",
-    "load-grunt-tasks": "~3.3.0"
+  "devDependencies" : {
+    "async" : "1.5.0",
+    "grunt" : "^0.4.5",
+    "grunt-contrib-clean" : "^0.6.0",
+    "grunt-contrib-copy" : "^0.8.1",
+    "grunt-contrib-watch" : "^0.6.1",
+    "grunt-dock" : "git+https://github.com/lmoran/grunt-dock.git#master",
+    "dockerode" : "git+https://github.com/lmoran/dockerode#master",
+    "grunt-ejs" : "^0.3.0",
+    "grunt-pkgcloud" : "git+https://github.com/lmoran/grunt-pkgcloud#master",
+    "pkgcloud" : "git+https://github.com/lmoran/pkgcloud#master",
+    "underscore" : "1.8.3",
+    "load-grunt-tasks" : "~3.3.0",
+    "mocha": "~1.12.0",
+    "chai": "3.4.1",
+    "sandboxed-module": "2.0.3"
+  },
+  "scripts" : {
+      "test": "./node_modules/mocha/bin/mocha --reporter spec --no-colors ./test/test-*.js"
   }
 }

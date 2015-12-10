@@ -4,19 +4,16 @@ module.exports = function(grunt) {
 
   // Custom config used by Grunt, useful to keep sensitive information
   // such as credentials
-  grunt.sensitiveConfig = grunt.file.readJSON("sensitive.json");
+  grunt.sensitiveConfig = grunt.file.readJSON("./test/sensitive.json");
 
   // General configuration of the module (image versions, etc)
-  grunt.customConfig = grunt.file.readJSON("custom-configuration.json");
+  grunt.customConfig = grunt.file.readJSON("./test/custom-configuration.json");
 
   grunt
       .initConfig({
         // Module information
-        pkg : grunt.file.readJSON("../package.json"),
-        gruntfile : {
-          src : "Gruntfile.js"
-        },
-        clusterDeploy : {
+        pkg : grunt.file.readJSON("./package.json"),
+        clouddity : {
           // PkgCloud configuration
           pkgcloud : grunt.sensitiveConfig.pkgcloud.client.pkgcloud,
 
@@ -70,137 +67,139 @@ module.exports = function(grunt) {
             flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
             securitygroups : [ "default", "dockerd", "http" ],
             images : [ "apache", "consul" ]
-          } ]
-        },
+          } ],
 
-        // Docker images to deploy to nodes
-        images : {
-          apache : {
-            dockerfile : "./apache",
-            tag : "2.4",
-            repo : "apache",
-            options : {
-              build : {
-                t : grunt.sensitiveConfig.docker.serveraddress + "/apache:2.4",
-                pull : true,
-                nocache : true
-              },
-              run : {
-                create : {
-                  ExposedPorts : {
-                    "80/tcp" : {}
-                  },
-                  HostConfig : {
-                    PortBindings : {
-                      "80/tcp" : [ {
-                        HostPort : "80"
-                      } ]
-                    }
-                  }
+          // Docker images to deploy to nodes
+          images : {
+            apache : {
+              dockerfile : "./apache",
+              tag : "2.4",
+              repo : "apache",
+              options : {
+                build : {
+                  t : grunt.sensitiveConfig.docker.serveraddress
+                      + "/apache:2.4",
+                  pull : true,
+                  nocache : true
                 },
-                start : {},
-                cmd : []
-              },
-
-            }
-          },
-          consul : {
-            dockerfile : "./consul",
-            tag : "0.3.1",
-            repo : "consul",
-            options : {
-              build : {
-                t : grunt.sensitiveConfig.docker.serveraddress
-                    + "/consul:0.3.1",
-                pull : true,
-                nocache : true
-              },
-              run : {
-                create : {
-                  ExposedPorts : {
-                    "8500/tcp" : {}
-                  },
-                  HostConfig : {
-                    PortBindings : {
-                      "8500/tcp" : [ {
-                        HostPort : "8500"
-                      } ]
+                run : {
+                  create : {
+                    ExposedPorts : {
+                      "80/tcp" : {}
+                    },
+                    HostConfig : {
+                      PortBindings : {
+                        "80/tcp" : [ {
+                          HostPort : "80"
+                        } ]
+                      }
                     }
-                  }
-                },
-                start : {},
-                cmd : []
+                  },
+                  start : {},
+                  cmd : []
+                }
               }
-            }
+            },
+            consul : {
+              dockerfile : "./consul",
+              tag : "0.3.1",
+              repo : "consul",
+              options : {
+                build : {
+                  t : grunt.sensitiveConfig.docker.serveraddress
+                      + "/consul:0.3.1",
+                  pull : true,
+                  nocache : true
+                },
+                run : {
+                  create : {
+                    ExposedPorts : {
+                      "8500/tcp" : {}
+                    },
+                    HostConfig : {
+                      PortBindings : {
+                        "8500/tcp" : [ {
+                          HostPort : "8500"
+                        } ]
+                      }
+                    }
+                  },
+                  start : {},
+                  cmd : []
+                }
+              }
+            },
+
+            // Test cases to execute to check the deployment success
+            test : [
+                {
+                  auth : grunt.sensitiveConfig.test.auth,
+                  protocol : "http",
+                  port : 80,
+                  path : "/wfs",
+                  query : {
+                    request : "GetCapabilities",
+                    version : "1.1.0",
+                    service : "wfs"
+                  },
+                  shouldStartWith : "<ows:"
+                },
+                {
+                  auth : grunt.sensitiveConfig.test.auth,
+                  protocol : "http",
+                  port : 80,
+                  path : "/wfs",
+                  query : {
+                    request : "GetFeature",
+                    version : "1.1.0",
+                    service : "wfs",
+                    typename : "aurin:evi_AusByEVI2011_DataProfile",
+                    maxfeatures : "2"
+                  },
+                  shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wfs:FeatureCollection"
+                },
+                {
+                  auth : grunt.sensitiveConfig.test.auth,
+                  protocol : "http",
+                  port : 80,
+                  path : "/wps",
+                  query : {
+                    request : "GetCapabilities",
+                    version : "1.0.0",
+                    service : "wps"
+                  },
+                  shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                },
+                {
+                  auth : grunt.sensitiveConfig.test.auth,
+                  protocol : "http",
+                  port : 80,
+                  path : "/csw",
+                  query : {
+                    request : "GetCapabilities",
+                    version : "2.0.2",
+                    service : "csw"
+                  },
+                  shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><csw:Capabilities xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gmd=\"http://www.isotc211.org/2005/gmd\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ows=\"http://www.opengis.net/ows\" xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.0.2\" xsi:schemaLocation=\"http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd\"><ows:ServiceIdentification><ows:ServiceType>CSW"
+                }, {
+                  auth : grunt.sensitiveConfig.test.auth,
+                  protocol : "http",
+                  port : 80,
+                  path : "/reg/dataregistry/url",
+                  query : {},
+                  shouldStartWith : "[{\"CreateIndex"
+                } ]
           }
-        },
-
-        // Test cases to execute to check the deployment success
-        test : [
-            {
-              auth : grunt.sensitiveConfig.test.auth,
-              protocol : "http",
-              port : 80,
-              path : "/wfs",
-              query : {
-                request : "GetCapabilities",
-                version : "1.1.0",
-                service : "wfs"
-              },
-              shouldStartWith : "<ows:"
-            },
-            {
-              auth : grunt.sensitiveConfig.test.auth,
-              protocol : "http",
-              port : 80,
-              path : "/wfs",
-              query : {
-                request : "GetFeature",
-                version : "1.1.0",
-                service : "wfs",
-                typename : "aurin:evi_AusByEVI2011_DataProfile",
-                maxfeatures : "2"
-              },
-              shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wfs:FeatureCollection"
-            },
-            {
-              auth : grunt.sensitiveConfig.test.auth,
-              protocol : "http",
-              port : 80,
-              path : "/wps",
-              query : {
-                request : "GetCapabilities",
-                version : "1.0.0",
-                service : "wps"
-              },
-              shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            },
-            {
-              auth : grunt.sensitiveConfig.test.auth,
-              protocol : "http",
-              port : 80,
-              path : "/csw",
-              query : {
-                request : "GetCapabilities",
-                version : "2.0.2",
-                service : "csw"
-              },
-              shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><csw:Capabilities xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gmd=\"http://www.isotc211.org/2005/gmd\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ows=\"http://www.opengis.net/ows\" xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.0.2\" xsi:schemaLocation=\"http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd\"><ows:ServiceIdentification><ows:ServiceType>CSW"
-            }, {
-              auth : grunt.sensitiveConfig.test.auth,
-              protocol : "http",
-              port : 80,
-              path : "/reg/dataregistry/url",
-              query : {},
-              shouldStartWith : "[{\"CreateIndex"
-            } ]
-
+        }
       });
 
   // Dependent tasks declarations
-  require("load-grunt-tasks")(grunt, {
-    pattern : [ "../grunt-*", "../@*/grunt-*" ]
-  });
+//  require("load-grunt-tasks")(grunt, {
+//    config : "../package.json",
+//    pattern : [ "../grunt-*", "../@*/grunt-*" ]
+//  });
+
+//  grunt.loadTasks("../tasks");
 
   /*
    * // Setups and builds the Docker images grunt.registerTask("build", [
