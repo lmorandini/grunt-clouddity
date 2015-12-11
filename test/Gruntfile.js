@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         pkg : grunt.file.readJSON("./package.json"),
         clouddity : {
           // PkgCloud configuration
-          pkgcloud : grunt.sensitiveConfig.pkgcloud.client.pkgcloud,
+          pkgcloud : grunt.sensitiveConfig.pkgcloud.client,
 
           // Docker configuration
           docker : grunt.sensitiveConfig.docker,
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
               repo : "apache",
               options : {
                 build : {
-                  t : grunt.sensitiveConfig.docker.serveraddress
+                  t : grunt.sensitiveConfig.docker.registry.serveraddress
                       + "/apache:2.4",
                   pull : true,
                   nocache : true
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
               repo : "consul",
               options : {
                 build : {
-                  t : grunt.sensitiveConfig.docker.serveraddress
+                  t : grunt.sensitiveConfig.docker.registry.serveraddress
                       + "/consul:0.3.1",
                   pull : true,
                   nocache : true
