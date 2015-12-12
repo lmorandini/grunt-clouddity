@@ -4,15 +4,15 @@ module.exports = function(grunt) {
 
   // Custom config used by Grunt, useful to keep sensitive information
   // such as credentials
-  grunt.sensitiveConfig = grunt.file.readJSON("./test/sensitive.json");
+  grunt.sensitiveConfig = grunt.file.readJSON("./sensitive.json");
 
   // General configuration of the module (image versions, etc)
-  grunt.customConfig = grunt.file.readJSON("./test/custom-configuration.json");
+  grunt.customConfig = grunt.file.readJSON("./custom-configuration.json");
 
   grunt
       .initConfig({
         // Module information
-        pkg : grunt.file.readJSON("./package.json"),
+        pkg : grunt.file.readJSON("./../package.json"),
         clouddity : {
           // PkgCloud configuration
           pkgcloud : grunt.sensitiveConfig.pkgcloud.client,
@@ -194,12 +194,12 @@ module.exports = function(grunt) {
       });
 
   // Dependent tasks declarations
-//  require("load-grunt-tasks")(grunt, {
-//    config : "../package.json",
-//    pattern : [ "../grunt-*", "../@*/grunt-*" ]
-//  });
+  require("load-grunt-tasks")(grunt, {
+    config : "../package.json",
+    pattern : [ "../grunt-*", "../@*/grunt-*" ]
+  });
 
-//  grunt.loadTasks("../tasks");
+  grunt.loadTasks("../tasks");
 
   /*
    * // Setups and builds the Docker images grunt.registerTask("build", [
