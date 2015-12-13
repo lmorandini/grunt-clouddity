@@ -4,15 +4,15 @@ module.exports = function(grunt) {
 
   // Custom config used by Grunt, useful to keep sensitive information
   // such as credentials
-  grunt.sensitiveConfig = grunt.file.readJSON("./sensitive.json");
+  grunt.sensitiveConfig = grunt.file.readJSON("./test/sensitive.json");
 
   // General configuration of the module (image versions, etc)
-  grunt.customConfig = grunt.file.readJSON("./custom-configuration.json");
+  grunt.customConfig = grunt.file.readJSON("./test/custom-configuration.json");
 
   grunt
       .initConfig({
         // Module information
-        pkg : grunt.file.readJSON("./../package.json"),
+        pkg : grunt.file.readJSON("package.json"),
         clouddity : {
           // PkgCloud configuration
           pkgcloud : grunt.sensitiveConfig.pkgcloud.client,
@@ -193,31 +193,5 @@ module.exports = function(grunt) {
         }
       });
 
-  // Dependent tasks declarations
-  require("load-grunt-tasks")(grunt, {
-    config : "../package.json",
-    pattern : [ "../grunt-*", "../@*/grunt-*" ]
-  });
-
-  grunt.loadTasks("../tasks");
-
-  /*
-   * // Setups and builds the Docker images grunt.registerTask("build", [
-   * "copy", "ejs", "dock:build" ]); // Pushes the Docker images to registry
-   * grunt.registerTask("push", [ "dock:push" ]); // Pulls the Docker images
-   * from registry to the servers grunt.registerTask("pull", [ "openapi:pull"
-   * ]); // Removes the running containers grunt.registerTask("remove", [
-   * "openapi:remove" ]); // Runs the Docker images from registry to the servers
-   * grunt.registerTask("run", [ "openapi:run" ]); // Tests the running
-   * containers grunt.registerTask("test", [ "openapi:test" ]); // Deploys and
-   * un-deploys the entire OpenAPI infrastructure grunt.registerTask("deploy", [
-   * "openapi:createsecuritygroups", "wait", "openapi:createservers", "wait",
-   * "openapi:updatesecuritygroups", "wait", "openapi:pull", "wait",
-   * "openapi:run", "wait", "openapi:test" ]); grunt.registerTask("undeploy", [
-   * "openapi:destroyservers", "wait", "openapi:destroysecuritygroups" ]); //
-   * Builds images and pushes/pulls them grunt.registerTask("redeployimages", [
-   * "build", "push", "pull" ]); // Re-deploys the containers
-   * grunt.registerTask("redeploy", [ "remove", "wait", "run", "wait", "test"
-   * ]);
-   */
+  grunt.loadTasks("./tasks");
 };

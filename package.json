@@ -21,8 +21,7 @@
     "grunt-ejs" : "^0.3.0",
     "grunt-pkgcloud" : "git+https://github.com/lmoran/grunt-pkgcloud#master",
     "pkgcloud" : "git+https://github.com/lmoran/pkgcloud#master",
-    "underscore" : "1.8.3",
-    "load-grunt-tasks" : "~3.3.0"
+    "underscore" : "1.8.3"
   },
   "devDependencies" : {
     "mocha": "~1.12.0",
