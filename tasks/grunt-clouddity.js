@@ -9,10 +9,10 @@ var _ = require("underscore");
 module.exports = function(grunt) {
 
   // Puts all the exported functions of the various modules in commands
-  var openstackTasks = require("../lib/openstack");
-  var dockerTasks = require("../lib/docker");
+//  var openstackTasks = require("../lib/openstack");
+//  var dockerTasks = require("../lib/docker");
   var commands = require("../lib/clouddity");
-//  var commands = _.extend(openstackTasks, dockerTasks);
+//  var commands = _.extend(commands, openstackTasks, dockerTasks);
 
   // Processes the given command with arg.
   var processCommand = function(command, options, arg) {
@@ -53,7 +53,6 @@ module.exports = function(grunt) {
   // For each command, creates the grunt task
   _.keys(commands).forEach(
       function(command) {
-console.log(JSON.stringify(command)); // XXX
         grunt.task.registerTask("clouddity:" + command, function(arg) {
           processCommand.apply(this, [ command,
               grunt.config.get("clouddity"), arg ]);

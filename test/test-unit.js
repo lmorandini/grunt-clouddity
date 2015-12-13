@@ -7,6 +7,7 @@ var SandboxedModule = require("sandboxed-module");
 
 // Test data
 var servers = require("./data/servers.json");
+var securitygroups = require("./data/securitygroups.json");
 var iterateOverNodes = require("./data/iterateOverNodes.json");
 
 var utils = SandboxedModule.require("../lib/utils.js", {
@@ -17,6 +18,15 @@ var utils = SandboxedModule.require("../lib/utils.js", {
           return {
             getServers : function(options, callback) {
               return callback(null, servers);
+            }
+          }
+        }
+      },
+      network : {
+        createClient : function() {
+          return {
+            getSecurityGroups : function(callback) {
+              return callback(null, securitygroups);
             }
           }
         }
@@ -40,6 +50,10 @@ describe("clouddity", function() {
     });
     it("should cimpose node name", function(done) {
       expect(utils.nodeName("oa", "computing", 1)).equal("oa-1-computing");
+      done();
+    });
+    it("should return security group cluster", function(done) {
+      expect(utils.securitygroupCluster("oa-http")).equal("oa");
       done();
     });
   });
@@ -93,5 +107,36 @@ describe("clouddity", function() {
           });
         });
   });
+
+  describe("iterateOverSecurityGroups", function() {
+
+    it("should return node data of all security groups in the cluster", function(done) {
+      var expDataIndex = 0;
+      var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
+      utils.iterateOverSecurityGroups(options, function(sec) {
+        return utils.securitygroupCluster(sec.name) === options.cluster
+      }, function(data, cb) {
+        expect(data.name).equal(expData[expDataIndex]);
+        expDataIndex++;
+        cb();
+      }, function(err) {
+        expect(err).equal(null);
+        done();
+      });
+    });
+
+    it("should return node data of all security groups in the cluster #2", function(done) {
+      var expDataIndex = 0;
+      var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
+      utils.iterateOverClusterSecurityGroups(options, function(data, cb) {
+        expect(data.name).equal(expData[expDataIndex]);
+        expDataIndex++;
+        cb();
+      }, function(err) {
+        expect(err).equal(null);
+        done();
+      });
+    });
+});
 
 });

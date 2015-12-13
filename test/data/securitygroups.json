@@ -1,0 +1,651 @@
+[
+    {
+      "id" : "03cf9255-f0c0-4df2-a959-d8f50e39d7f8",
+      "name" : "r-studio",
+      "description" : "Open port for R-studio",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "0a262cfd-2733-4e6f-9fa0-1f8c3687695a",
+        "security_group_id" : "03cf9255-f0c0-4df2-a959-d8f50e39d7f8"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "274fa571-6d5e-46a2-99aa-159e25f67103",
+        "security_group_id" : "03cf9255-f0c0-4df2-a959-d8f50e39d7f8"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "0.0.0.0/0",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8787,
+        "port_range_min" : 8787,
+        "id" : "2770ee39-462b-4cb1-8197-70dba05f3dcb",
+        "security_group_id" : "03cf9255-f0c0-4df2-a959-d8f50e39d7f8"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "10bcd4d2-8c2b-49fe-ae06-dd5f2f711afd",
+      "name" : "http",
+      "description" : "Open port 80 to any host",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "07820f5b-a930-411f-b43e-98b939f6ad10",
+        "security_group_id" : "10bcd4d2-8c2b-49fe-ae06-dd5f2f711afd"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "18f88fdb-a3da-41f3-b653-9ade5e8d21bf",
+        "security_group_id" : "10bcd4d2-8c2b-49fe-ae06-dd5f2f711afd"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "0.0.0.0/0",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 80,
+        "port_range_min" : 80,
+        "id" : "4642fcff-897e-48ce-9685-c052fea6ae6f",
+        "security_group_id" : "10bcd4d2-8c2b-49fe-ae06-dd5f2f711afd"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "3a92ab0f-f468-4c69-ab1e-99faffeee14d",
+      "name" : "docker-dev",
+      "description" : "Open docker port to dev machines",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.0/24",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 2375,
+        "port_range_min" : 2375,
+        "id" : "2d1e3a60-84df-4e42-b17b-ce1b23e7ffc6",
+        "security_group_id" : "3a92ab0f-f468-4c69-ab1e-99faffeee14d"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "80266ee6-2749-4879-9d41-fa30e1723a19",
+        "security_group_id" : "3a92ab0f-f468-4c69-ab1e-99faffeee14d"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "ab71717e-e1ac-44d8-b74e-c95efafa843e",
+        "security_group_id" : "3a92ab0f-f468-4c69-ab1e-99faffeee14d"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.78/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 2375,
+        "port_range_min" : 2375,
+        "id" : "e949aa12-b338-4555-84d8-233fb24839b1",
+        "security_group_id" : "3a92ab0f-f468-4c69-ab1e-99faffeee14d"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "42a6fb46-c399-4ee3-900f-787681883bfb",
+      "name" : "docker-registry",
+      "description" : "Open the docker registry port",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "dcdeab2c-df58-488d-8d0d-949fe54b8f61",
+        "security_group_id" : "42a6fb46-c399-4ee3-900f-787681883bfb"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "ea09f906-2106-47b1-9d6d-12d2b0a2f5b5",
+        "security_group_id" : "42a6fb46-c399-4ee3-900f-787681883bfb"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "0.0.0.0/0",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 5000,
+        "port_range_min" : 5000,
+        "id" : "ff1666b7-8845-4d84-901b-fbac2468547c",
+        "security_group_id" : "42a6fb46-c399-4ee3-900f-787681883bfb"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "57313895-2523-4cbc-826b-6932e2379dd9",
+      "name" : "lb-dev",
+      "description" : "lb-dev",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "29c6e4ac-b141-48aa-84f7-0550b8ad126f",
+        "security_group_id" : "57313895-2523-4cbc-826b-6932e2379dd9"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.78/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 80,
+        "port_range_min" : 80,
+        "id" : "7702ad1a-9e3e-4063-9b07-47bf7facd2c3",
+        "security_group_id" : "57313895-2523-4cbc-826b-6932e2379dd9"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "cf91c1e9-8726-48e1-9764-0668ce46f636",
+        "security_group_id" : "57313895-2523-4cbc-826b-6932e2379dd9"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db",
+      "name" : "oa-consul",
+      "description" : "Open the consul instance to the computing nodes amd dev machines",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.95.214/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 5000,
+        "port_range_min" : 5000,
+        "id" : "0b8b31f4-2600-4714-8b25-44400646f7e0",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "14aab3a7-ca5e-49e5-ae3b-d77535c6d7f5",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.95.215/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 5000,
+        "port_range_min" : 5000,
+        "id" : "95d6ab54-43b1-4f28-b550-aee61fd841f8",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "a54025bb-32f9-48a2-a17e-b67b0e5d03f7",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.0/24",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 5000,
+        "port_range_min" : 5000,
+        "id" : "b24bf1ec-5bfb-416a-961e-28a3564a0ea5",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.95.208/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 5000,
+        "port_range_min" : 5000,
+        "id" : "f7d63713-db51-4c1a-895a-454a6ebf3345",
+        "security_group_id" : "62a56b4d-185b-4a55-a02b-7d1efc9585db"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "af223e3a-292e-46a2-ba8c-fcd3b82cb37d",
+      "name" : "http",
+      "description" : "Open the HTTP port to any host",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "4c7ec0d5-8f64-40c0-960d-76c56b490b3c",
+        "security_group_id" : "af223e3a-292e-46a2-ba8c-fcd3b82cb37d"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "a9f3c4fe-053f-4481-aa0e-d9f0f02be570",
+        "security_group_id" : "af223e3a-292e-46a2-ba8c-fcd3b82cb37d"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "b0d5e896-2854-456f-a5a7-76014b6764da",
+      "name" : "oa-dockerd",
+      "description" : "Open the Docker demon port to dev machines",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.0/24",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 2375,
+        "port_range_min" : 2375,
+        "id" : "2c6e78c4-14dd-436e-adab-82f8d4bdb4c0",
+        "security_group_id" : "b0d5e896-2854-456f-a5a7-76014b6764da"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "48614d1f-031b-4145-8417-ffcfacba2112",
+        "security_group_id" : "b0d5e896-2854-456f-a5a7-76014b6764da"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "cf1875c9-afdb-45f4-8d25-80919e2c5e1b",
+        "security_group_id" : "b0d5e896-2854-456f-a5a7-76014b6764da"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "10.75.201.241/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 2375,
+        "port_range_min" : 2375,
+        "id" : "d4b9478e-da90-4857-90dd-2529e08f5487",
+        "security_group_id" : "b0d5e896-2854-456f-a5a7-76014b6764da"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "c141afec-d681-47be-b60c-2a02538aa3d9",
+      "name" : "LB",
+      "description" : "Open port 80 to LB machine only",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "799c80a4-c215-4101-93a5-d94675e455c1",
+        "security_group_id" : "c141afec-d681-47be-b60c-2a02538aa3d9"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "7d6eb633-b82c-494f-93ab-b7a02e63a002",
+        "security_group_id" : "c141afec-d681-47be-b60c-2a02538aa3d9"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.94.139/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 80,
+        "port_range_min" : 80,
+        "id" : "8f3e0a49-df92-4752-81a5-80c472672204",
+        "security_group_id" : "c141afec-d681-47be-b60c-2a02538aa3d9"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "c74d2687-2fd6-4593-b40b-b5dfb5d1dba8",
+      "name" : "oa-http",
+      "description" : "Open the HTTP port to any client",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "2274772d-d7de-45e1-ac41-81f1ccdcfdf7",
+        "security_group_id" : "c74d2687-2fd6-4593-b40b-b5dfb5d1dba8"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "623ee414-7c2b-4877-a8a1-7323e7d6de3a",
+        "security_group_id" : "c74d2687-2fd6-4593-b40b-b5dfb5d1dba8"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "0.0.0.0/0",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 80,
+        "port_range_min" : 80,
+        "id" : "6533115c-a5f5-4a47-bdba-c05fa88db565",
+        "security_group_id" : "c74d2687-2fd6-4593-b40b-b5dfb5d1dba8"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    },
+    {
+      "id" : "d68f495c-5029-4d80-b755-b2b4f9d8b96e",
+      "name" : "oa-httplb",
+      "description" : "Open two HTTP ports to the load-balancer and dev machines",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.0/24",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 81,
+        "port_range_min" : 80,
+        "id" : "33e18f56-cb1b-4112-9541-36a56c838581",
+        "security_group_id" : "d68f495c-5029-4d80-b755-b2b4f9d8b96e"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "73d20031-2ba2-48dd-bce8-7dd5b6ccdf92",
+        "security_group_id" : "d68f495c-5029-4d80-b755-b2b4f9d8b96e"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "7e91f82a-8031-462a-b1af-47487ebe48a9",
+        "security_group_id" : "d68f495c-5029-4d80-b755-b2b4f9d8b96e"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.95.21/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 81,
+        "port_range_min" : 80,
+        "id" : "9012cb40-5ff1-4727-a6e1-f04348f66635",
+        "security_group_id" : "d68f495c-5029-4d80-b755-b2b4f9d8b96e"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    }, {
+      "id" : "ec368e28-082c-4bef-823e-d20748612c88",
+      "name" : "consul",
+      "description" : "Allow querying the consul KV store",
+      "securityGroupRules" : [ {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "123a203d-4d20-4f8d-b0cd-d9b9d3edb8b0",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.93.147/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "308a0362-56f9-44ea-a4cd-47df1ac19aa8",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.94.140/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "3128db2e-c226-484f-b8f5-1267d1691311",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.94.126/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "587df17a-f29f-4881-beae-f4a65083f19d",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "128.250.7.0/24",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "80f2a37a-7676-425c-b544-a9bea650fc2e",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.94.139/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "a3e03576-ca06-45d8-b506-88391c1b8eb8",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "d7d306fd-dcec-414d-a3d1-03bf3588f6c2",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "115.146.93.175/32",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 8500,
+        "port_range_min" : 8500,
+        "id" : "e083ce7b-b87d-43b3-a92d-8d3b5ad806ff",
+        "security_group_id" : "ec368e28-082c-4bef-823e-d20748612c88"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    }, {
+      "id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716",
+      "name" : "default",
+      "description" : "default",
+      "securityGroupRules" : [ {
+        "remote_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716",
+        "direction" : "ingress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "1ceab298-500a-4355-8c5c-ab7c551bca02",
+        "security_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "ingress",
+        "remote_ip_prefix" : "0.0.0.0/0",
+        "protocol" : "tcp",
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : 22,
+        "port_range_min" : 22,
+        "id" : "3594e1e2-c39f-46b2-acce-4c554c982986",
+        "security_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "7c6f86ab-6e0a-43a9-8231-ee511b1e2d21",
+        "security_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716"
+      }, {
+        "remote_group_id" : null,
+        "direction" : "egress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv4",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "852c0985-78f8-45c0-88dc-9f5299202835",
+        "security_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716"
+      }, {
+        "remote_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716",
+        "direction" : "ingress",
+        "remote_ip_prefix" : null,
+        "protocol" : null,
+        "ethertype" : "IPv6",
+        "tenant_id" : "e0184a0218d54f4faf491a97ce0ec59f",
+        "port_range_max" : null,
+        "port_range_min" : null,
+        "id" : "be915a3d-8cc7-4b2a-899b-6f9c1f8dc567",
+        "security_group_id" : "fea0a4fb-ecee-42ba-818c-c350eb2e3716"
+      } ],
+      "tenantId" : "e0184a0218d54f4faf491a97ce0ec59f"
+    } ]
