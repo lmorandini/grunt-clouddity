@@ -60,6 +60,6 @@ module.exports = function(grunt) {
       });
 
   // Registers the Grunt multi task
-  grunt.registerMultiTask("grunt-clouddity",
+  grunt.registerMultiTask("clouddity",
       "Grunt tasks to deploy on a cluster", processCommand);
 };
