@@ -36,6 +36,7 @@ The "wait" task is necessary to give time to the cloud to complete all operation
 is defined as:
 (In the dependencies section of package.json)
 ```"grunt-wait": "^0.1.0"```
+
 (In the Gruntfile)
 ```
 wait : {
