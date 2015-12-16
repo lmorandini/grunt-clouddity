@@ -52,8 +52,16 @@ describe("clouddity", function() {
       expect(utils.nodeName("oa", "computing", 1)).equal("oa-1-computing");
       done();
     });
+    it("should cimpose security group name", function(done) {
+      expect(utils.securitygroupName("oa", "http")).equal("oa-http");
+      done();
+    });
     it("should return security group cluster", function(done) {
       expect(utils.securitygroupCluster("oa-http")).equal("oa");
+      done();
+    });
+    it("should return security group minus the cluster name", function(done) {
+      expect(utils.securitygroupPlainName("oa-http")).equal("http");
       done();
     });
   });
