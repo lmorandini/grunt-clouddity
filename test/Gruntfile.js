@@ -13,119 +13,77 @@ module.exports = function(grunt) {
       .initConfig({
         // Module information
         pkg : grunt.file.readJSON("package.json"),
-        clouddity : {
-          // PkgCloud configuration
-          pkgcloud : grunt.sensitiveConfig.pkgcloud.client,
 
-          // Docker configuration
-          docker : grunt.sensitiveConfig.docker,
+        // Docker configuration
+        dock : {
+          options : {
+            auth : grunt.sensitiveConfig.docker.registry.auth,
+            registry : grunt.sensitiveConfig.docker.registry.serveraddress,
 
-          // Name of cluster to build (server names are composed as <cluster
-          // name>-<node type increment number>-<node type>, i.e.:
-          // "oa-1-computing")
-          cluster : "oa",
+            // Local docker demon used to send Docker commands to the cluster
+            docker : grunt.sensitiveConfig.docker.master,
 
-          // Security groups as defined by PkgCloud
-          securitygroups : {
-            dockerd : {
-              description : "Open the Docker demon port to dev machines",
-              rules : [ {
-                direction : "ingress",
-                ethertype : "IPv4",
-                protocol : "tcp",
-                portRangeMin : 2375,
-                portRangeMax : 2375,
-                remoteIpPrefix : grunt.sensitiveConfig.devIPs
-              } ]
-            },
-            http : {
-              description : "Open two HTTP ports to the load-balancer, computing, and dev machines",
-              rules : [ {
-                direction : "ingress",
-                ethertype : "IPv4",
-                protocol : "tcp",
-                portRangeMin : 80,
-                portRangeMax : 81,
-                remoteIpPrefix : grunt.sensitiveConfig.devIPs,
-                remoteIpNodePrefixes : [ "loadbalancer", "computing" ]
-              } ]
-            }
-          },
+            // Options for the Docker clients on the servers
+            dockerclient : grunt.sensitiveConfig.docker.client,
 
-          // Types of node to provision
-          nodetypes : [ {
-            name : "computing",
-            replication : 3,
-            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
-            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
-            securitygroups : [ "default", "dockerd" ],
-            images : [ "apache" ]
-          }, {
-            name : "loadbalancer",
-            replication : 1,
-            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
-            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
-            securitygroups : [ "default", "dockerd", "http" ],
-            images : [ "apache", "consul" ]
-          } ],
-
-          // Docker images to deploy to nodes
-          images : {
-            apache : {
-              dockerfile : "./apache",
-              tag : "2.4",
-              repo : "apache",
-              options : {
-                build : {
-                  t : grunt.sensitiveConfig.docker.registry.serveraddress
-                      + "/apache:2.4",
-                  pull : true,
-                  nocache : true
-                },
-                run : {
-                  create : {
-                    ExposedPorts : {
-                      "80/tcp" : {}
-                    },
-                    HostConfig : {
-                      PortBindings : {
-                        "80/tcp" : [ {
-                          HostPort : "80"
-                        } ]
-                      }
-                    }
+            // Docker images to deploy to nodes
+            images : {
+              apache : {
+                dockerfile : "./apache",
+                tag : "2.4",
+                repo : "apache",
+                options : {
+                  build : {
+                    t : grunt.sensitiveConfig.docker.registry.serveraddress
+                        + "/apache:2.4",
+                    pull : true,
+                    nocache : true
                   },
-                  start : {},
-                  cmd : []
+                  run : {
+                    create : {
+                      ExposedPorts : {
+                        "80/tcp" : {}
+                      },
+                      HostConfig : {
+                        PortBindings : {
+                          "80/tcp" : [ {
+                            HostPort : "80"
+                          } ]
+                        }
+                      }
+                    },
+                    start : {},
+                    cmd : []
+                  }
                 }
-              }
-            },
-            consul : {
-              dockerfile : "./consul",
-              tag : "0.3.1",
-              repo : "consul",
-              options : {
-                build : {
-                  t : grunt.sensitiveConfig.docker.registry.serveraddress
-                      + "/consul:0.3.1",
-                  pull : true,
-                  nocache : true
-                },
-                run : {
-                  create : {
-                    ExposedPorts : {
-                      "8500/tcp" : {}
-                    },
-                    HostConfig : {
-                      PortBindings : {
-                        "8500/tcp" : [ {
-                          HostPort : "8500"
-                        } ]
-                      }
-                    }
+              },
+              consul : {
+                dockerfile : "./consul",
+                tag : "0.3.1",
+                repo : "consul",
+                options : {
+                  build : {
+                    t : grunt.sensitiveConfig.docker.registry.serveraddress
+                        + "/consul:0.3.1",
+                    pull : true,
+                    nocache : true
                   },
-                  start : {},
-                  cmd : []
+                  run : {
+                    create : {
+                      ExposedPorts : {
+                        "8500/tcp" : {}
+                      },
+                      HostConfig : {
+                        PortBindings : {
+                          "8500/tcp" : [ {
+                            HostPort : "8500"
+                          } ]
+                        }
+                      }
+                    },
+                    start : {},
+                    cmd : []
+                  }
                 }
               }
             },
@@ -190,6 +148,63 @@ module.exports = function(grunt) {
                   shouldStartWith : "[{\"CreateIndex"
                 } ]
           }
+        },
+
+        clouddity : {
+          // PkgCloud client configuration
+          pkgcloud : grunt.sensitiveConfig.pkgcloud,
+
+          // Docker client configuratio
+          docker : grunt.sensitiveConfig.docker,
+
+          // Name of cluster to build (server names are composed as <cluster
+          // name>-<node type increment number>-<node type>, i.e.:
+          // "oa-1-computing")
+          cluster : "oa",
+
+          // Security groups as defined by PkgCloud
+          securitygroups : {
+            dockerd : {
+              description : "Open the Docker demon port to dev machines",
+              rules : [ {
+                direction : "ingress",
+                ethertype : "IPv4",
+                protocol : "tcp",
+                portRangeMin : 2375,
+                portRangeMax : 2375,
+                remoteIpPrefix : grunt.sensitiveConfig.devIPs
+              } ]
+            },
+            http : {
+              description : "Open two HTTP ports to the load-balancer, computing, and dev machines",
+              rules : [ {
+                direction : "ingress",
+                ethertype : "IPv4",
+                protocol : "tcp",
+                portRangeMin : 80,
+                portRangeMax : 81,
+                remoteIpPrefix : grunt.sensitiveConfig.devIPs,
+                remoteIpNodePrefixes : [ "loadbalancer", "computing" ]
+              } ]
+            }
+          },
+
+          // Types of node to provision
+          nodetypes : [ {
+            name : "computing",
+            replication : 3,
+            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
+            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
+            securitygroups : [ "default", "dockerd" ],
+            images : [ "apache" ]
+          }, {
+            name : "loadbalancer",
+            replication : 1,
+            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
+            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
+            securitygroups : [ "default", "dockerd", "http" ],
+            images : [ "apache", "consul" ]
+          } ]
         }
       });
 
