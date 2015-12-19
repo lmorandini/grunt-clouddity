@@ -26,8 +26,7 @@ grunt clouddity:destroysecuritygroups
 To call these tasks in one step, add the following to the Gruntfile:
 ```
 grunt.registerTask("deploy", [ "clouddity:createsecuritygroups", "wait",
-      "clouddity:createnodes", "wait", "clouddity:updatesecuritygroups", "wait",
-      "clouddity:pull", "wait", "clouddity:run", "wait"]);
+      "clouddity:createnodes", "wait", "clouddity:updatesecuritygroups"]);
 grunt.registerTask("undeploy", [ "clouddity:destroynodes", "wait",
       "clouddity:destroysecuritygroups" ]);
 ```
@@ -60,10 +59,13 @@ grunt.loadNpmTasks("grunt-wait");
 ```
 
 
-## Tasks
+## Docker tasks to build images 
 
-TODO: add test tasks
-TODO: add Docker tasks
+Builds images:
+```grunt dock:build```
+
+
+## Clouddity tasks to deploy on the cloud 
 
 ### clouddity:listnodes
 
