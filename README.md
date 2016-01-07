@@ -6,6 +6,9 @@ Grunt tasks to ease the deployment of application on clusters using Grunt, Docke
 
 TODO: add description of Docker steps
 
+The Docker service on the master node (usually localhost) should be started before
+operating on Docker images.
+
 The tasks must be run in a certain order, since nodes depends on security groups, and the
 actual IP addresses of nodes is known only after the nodes deployment.
 

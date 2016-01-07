@@ -1,0 +1,286 @@
+[ {
+  "dockerfile" : "./apache",
+  "tag" : "2.4",
+  "repo" : "docker.test.com/apache:2.4",
+  "options" : {
+    "build" : {
+      "t" : "docker.test.com/apache:2.4",
+      "pull" : true,
+      "nocache" : true
+    },
+    "run" : {
+      "create" : {
+        "ExposedPorts" : {
+          "80/tcp" : {}
+        },
+        "HostConfig" : {
+          "PortBindings" : {
+            "80/tcp" : [ {
+              "HostPort" : "80"
+            } ]
+          }
+        }
+      },
+      "start" : {},
+      "cmd" : []
+    }
+  },
+  "auth" : {
+    "email" : "test@test.com",
+    "username" : "deployer",
+    "password" : "passwd"
+  },
+  "registry" : "docker.test.com",
+  "docker" : {
+    "protocol" : "http",
+    "host" : "localhost",
+    "port" : 2375
+  },
+  "dockerclient" : {
+    "protocol" : "http",
+    "port" : 2375
+  },
+  "name" : "apache",
+  "node" : {
+    "node" : {
+      "id" : "c5b0e7f5-dc88-465d-b669-2d3c523e0551",
+      "name" : "oa-1-loadbalancer",
+      "address" : "115.146.95.21",
+      "type" : "loadbalancer"
+    },
+    "images" : [ "apache", "consul" ],
+    "docker" : {
+      "protocol" : "http",
+      "host" : "115.146.95.21",
+      "port" : 2375
+    }
+  }
+}, {
+  "dockerfile" : "./consul",
+  "tag" : "0.3.1",
+  "repo" : "docker.test.com/consul:0.3.1",
+  "options" : {
+    "build" : {
+      "t" : "docker.test.com/consul:0.3.1",
+      "pull" : true,
+      "nocache" : true
+    },
+    "run" : {
+      "create" : {
+        "ExposedPorts" : {
+          "8500/tcp" : {}
+        },
+        "HostConfig" : {
+          "PortBindings" : {
+            "8500/tcp" : [ {
+              "HostPort" : "8500"
+            } ]
+          }
+        }
+      },
+      "start" : {},
+      "cmd" : []
+    }
+  },
+  "auth" : {
+    "email" : "test@test.com",
+    "username" : "deployer",
+    "password" : "passwd"
+  },
+  "registry" : "docker.test.com",
+  "docker" : {
+    "protocol" : "http",
+    "host" : "localhost",
+    "port" : 2375
+  },
+  "dockerclient" : {
+    "protocol" : "http",
+    "port" : 2375
+  },
+  "name" : "consul",
+  "node" : {
+    "node" : {
+      "id" : "c5b0e7f5-dc88-465d-b669-2d3c523e0551",
+      "name" : "oa-1-loadbalancer",
+      "address" : "115.146.95.21",
+      "type" : "loadbalancer"
+    },
+    "images" : [ "apache", "consul" ],
+    "docker" : {
+      "protocol" : "http",
+      "host" : "115.146.95.21",
+      "port" : 2375
+    }
+  }
+}, {
+  "dockerfile" : "./apache",
+  "tag" : "2.4",
+  "repo" : "docker.test.com/apache:2.4",
+  "options" : {
+    "build" : {
+      "t" : "docker.test.com/apache:2.4",
+      "pull" : true,
+      "nocache" : true
+    },
+    "run" : {
+      "create" : {
+        "ExposedPorts" : {
+          "80/tcp" : {}
+        },
+        "HostConfig" : {
+          "PortBindings" : {
+            "80/tcp" : [ {
+              "HostPort" : "80"
+            } ]
+          }
+        }
+      },
+      "start" : {},
+      "cmd" : []
+    }
+  },
+  "auth" : {
+    "email" : "test@test.com",
+    "username" : "deployer",
+    "password" : "passwd"
+  },
+  "registry" : "docker.test.com",
+  "docker" : {
+    "protocol" : "http",
+    "host" : "localhost",
+    "port" : 2375
+  },
+  "dockerclient" : {
+    "protocol" : "http",
+    "port" : 2375
+  },
+  "name" : "apache",
+  "node" : {
+    "node" : {
+      "id" : "9c62e0c2-4e2a-42c4-92b1-727518472fd6",
+      "name" : "oa-3-computing",
+      "address" : "115.146.95.215",
+      "type" : "computing"
+    },
+    "images" : [ "apache" ],
+    "docker" : {
+      "protocol" : "http",
+      "host" : "115.146.95.215",
+      "port" : 2375
+    }
+  }
+}, {
+  "dockerfile" : "./apache",
+  "tag" : "2.4",
+  "repo" : "docker.test.com/apache:2.4",
+  "options" : {
+    "build" : {
+      "t" : "docker.test.com/apache:2.4",
+      "pull" : true,
+      "nocache" : true
+    },
+    "run" : {
+      "create" : {
+        "ExposedPorts" : {
+          "80/tcp" : {}
+        },
+        "HostConfig" : {
+          "PortBindings" : {
+            "80/tcp" : [ {
+              "HostPort" : "80"
+            } ]
+          }
+        }
+      },
+      "start" : {},
+      "cmd" : []
+    }
+  },
+  "auth" : {
+    "email" : "test@test.com",
+    "username" : "deployer",
+    "password" : "passwd"
+  },
+  "registry" : "docker.test.com",
+  "docker" : {
+    "protocol" : "http",
+    "host" : "localhost",
+    "port" : 2375
+  },
+  "dockerclient" : {
+    "protocol" : "http",
+    "port" : 2375
+  },
+  "name" : "apache",
+  "node" : {
+    "node" : {
+      "id" : "686856fa-2456-4942-be52-682057991c96",
+      "name" : "oa-2-computing",
+      "address" : "115.146.95.214",
+      "type" : "computing"
+    },
+    "images" : [ "apache" ],
+    "docker" : {
+      "protocol" : "http",
+      "host" : "115.146.95.214",
+      "port" : 2375
+    }
+  }
+}, {
+  "dockerfile" : "./apache",
+  "tag" : "2.4",
+  "repo" : "docker.test.com/apache:2.4",
+  "options" : {
+    "build" : {
+      "t" : "docker.test.com/apache:2.4",
+      "pull" : true,
+      "nocache" : true
+    },
+    "run" : {
+      "create" : {
+        "ExposedPorts" : {
+          "80/tcp" : {}
+        },
+        "HostConfig" : {
+          "PortBindings" : {
+            "80/tcp" : [ {
+              "HostPort" : "80"
+            } ]
+          }
+        }
+      },
+      "start" : {},
+      "cmd" : []
+    }
+  },
+  "auth" : {
+    "email" : "test@test.com",
+    "username" : "deployer",
+    "password" : "passwd"
+  },
+  "registry" : "docker.test.com",
+  "docker" : {
+    "protocol" : "http",
+    "host" : "localhost",
+    "port" : 2375
+  },
+  "dockerclient" : {
+    "protocol" : "http",
+    "port" : 2375
+  },
+  "name" : "apache",
+  "node" : {
+    "node" : {
+      "id" : "9a612da7-0fff-43d5-a87e-45d3926f7d13",
+      "name" : "oa-1-computing",
+      "address" : "115.146.95.208",
+      "type" : "computing"
+    },
+    "images" : [ "apache" ],
+    "docker" : {
+      "protocol" : "http",
+      "host" : "115.146.95.208",
+      "port" : 2375
+    }
+  }
+} ]

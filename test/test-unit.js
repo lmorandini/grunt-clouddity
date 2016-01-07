@@ -9,6 +9,7 @@ var SandboxedModule = require("sandboxed-module");
 var servers = require("./data/servers.json");
 var securitygroups = require("./data/securitygroups.json");
 var iterateOverNodes = require("./data/iterateOverNodes.json");
+var iterateOverClusterImages = require("./data/iterateOverClusterImages.json");
 
 var utils = SandboxedModule.require("../lib/utils.js", {
   requires : {
@@ -118,33 +119,51 @@ describe("clouddity", function() {
 
   describe("iterateOverSecurityGroups", function() {
 
-    it("should return node data of all security groups in the cluster", function(done) {
-      var expDataIndex = 0;
-      var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
-      utils.iterateOverSecurityGroups(options, function(sec) {
-        return utils.securitygroupCluster(sec.name) === options.cluster
-      }, function(data, cb) {
-        expect(data.name).equal(expData[expDataIndex]);
-        expDataIndex++;
-        cb();
-      }, function(err) {
-        expect(err).equal(null);
-        done();
-      });
-    });
+    it("should return node data of all security groups in the cluster",
+        function(done) {
+          var expDataIndex = 0;
+          var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
+          utils.iterateOverSecurityGroups(options, function(sec) {
+            return utils.securitygroupCluster(sec.name) === options.cluster
+          }, function(data, cb) {
+            expect(data.name).equal(expData[expDataIndex]);
+            expDataIndex++;
+            cb();
+          }, function(err) {
+            expect(err).equal(null);
+            done();
+          });
+        });
 
-    it("should return node data of all security groups in the cluster #2", function(done) {
-      var expDataIndex = 0;
-      var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
-      utils.iterateOverClusterSecurityGroups(options, function(data, cb) {
-        expect(data.name).equal(expData[expDataIndex]);
-        expDataIndex++;
-        cb();
-      }, function(err) {
-        expect(err).equal(null);
-        done();
-      });
+    it("should return node data of all security groups in the cluster #2",
+        function(done) {
+          var expDataIndex = 0;
+          var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
+          utils.iterateOverClusterSecurityGroups(options, function(data, cb) {
+            expect(data.name).equal(expData[expDataIndex]);
+            expDataIndex++;
+            cb();
+          }, function(err) {
+            expect(err).equal(null);
+            done();
+          });
+        });
+  });
+
+  describe("iterateOverClusterImages", function() {
+
+    it("should return node data of all images in all the nodes in the cluster",
+        function(done) {
+          var expDataIndex = 0;
+          utils.iterateOverClusterImages(grunt, options, function(data, cb) {
+            expect(JSON.parse(JSON.stringify(data))).eql(
+                JSON.parse(JSON.stringify(iterateOverClusterImages[expDataIndex])));
+            expDataIndex++;
+            cb();
+          }, function(err) {
+            done();
+          });
     });
-});
+  });
 
 });
