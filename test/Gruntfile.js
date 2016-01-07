@@ -130,82 +130,83 @@ module.exports = function(grunt) {
           },
 
           // Types of node to provision
-          nodetypes : [ {
-            name : "computing",
-            replication : 3,
-            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
-            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
-            securitygroups : [ "default", "dockerd" ],
-            images : [ "apache" ]
-          }, {
-            name : "loadbalancer",
-            replication : 1,
-            imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
-            flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
-            securitygroups : [ "default", "dockerd", "http" ],
-            images : [ "apache", "consul" ]
-          } ],
+          nodetypes : [
+              {
+                name : "computing",
+                replication : 3,
+                imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
+                flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
+                securitygroups : [ "default", "dockerd" ],
+                images : [ "apache" ]
+              },
+              {
+                name : "loadbalancer",
+                replication : 1,
+                imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
+                flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
+                securitygroups : [ "default", "dockerd", "http" ],
+                images : [ "apache", "consul" ],
+                // Test cases to execute to check the deployment success
+                test : [
+                    {
+                      auth : grunt.sensitiveConfig.test.auth,
+                      protocol : "http",
+                      port : 80,
+                      path : "/wfs",
+                      query : {
+                        request : "GetCapabilities",
+                        version : "1.1.0",
+                        service : "wfs"
+                      },
+                      shouldStartWith : "<ows:"
+                    },
+                    {
+                      auth : grunt.sensitiveConfig.test.auth,
+                      protocol : "http",
+                      port : 80,
+                      path : "/wfs",
+                      query : {
+                        request : "GetFeature",
+                        version : "1.1.0",
+                        service : "wfs",
+                        typename : "aurin:evi_AusByEVI2011_DataProfile",
+                        maxfeatures : "2"
+                      },
+                      shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wfs:FeatureCollection"
+                    },
+                    {
+                      auth : grunt.sensitiveConfig.test.auth,
+                      protocol : "http",
+                      port : 80,
+                      path : "/wps",
+                      query : {
+                        request : "GetCapabilities",
+                        version : "1.0.0",
+                        service : "wps"
+                      },
+                      shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                    },
+                    {
+                      auth : grunt.sensitiveConfig.test.auth,
+                      protocol : "http",
+                      port : 80,
+                      path : "/csw",
+                      query : {
+                        request : "GetCapabilities",
+                        version : "2.0.2",
+                        service : "csw"
+                      },
+                      shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><csw:Capabilities xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gmd=\"http://www.isotc211.org/2005/gmd\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ows=\"http://www.opengis.net/ows\" xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.0.2\" xsi:schemaLocation=\"http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd\"><ows:ServiceIdentification><ows:ServiceType>CSW"
+                    }, {
+                      auth : grunt.sensitiveConfig.test.auth,
+                      protocol : "http",
+                      port : 80,
+                      path : "/reg/dataregistry/url",
+                      query : {},
+                      shouldStartWith : "[{\"CreateIndex"
+                    } ]
 
-          // Test cases to execute to check the deployment success
-          test : [
-              {
-                auth : grunt.sensitiveConfig.test.auth,
-                protocol : "http",
-                port : 80,
-                path : "/wfs",
-                query : {
-                  request : "GetCapabilities",
-                  version : "1.1.0",
-                  service : "wfs"
-                },
-                shouldStartWith : "<ows:"
-              },
-              {
-                auth : grunt.sensitiveConfig.test.auth,
-                protocol : "http",
-                port : 80,
-                path : "/wfs",
-                query : {
-                  request : "GetFeature",
-                  version : "1.1.0",
-                  service : "wfs",
-                  typename : "aurin:evi_AusByEVI2011_DataProfile",
-                  maxfeatures : "2"
-                },
-                shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wfs:FeatureCollection"
-              },
-              {
-                auth : grunt.sensitiveConfig.test.auth,
-                protocol : "http",
-                port : 80,
-                path : "/wps",
-                query : {
-                  request : "GetCapabilities",
-                  version : "1.0.0",
-                  service : "wps"
-                },
-                shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-              },
-              {
-                auth : grunt.sensitiveConfig.test.auth,
-                protocol : "http",
-                port : 80,
-                path : "/csw",
-                query : {
-                  request : "GetCapabilities",
-                  version : "2.0.2",
-                  service : "csw"
-                },
-                shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><csw:Capabilities xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gmd=\"http://www.isotc211.org/2005/gmd\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ows=\"http://www.opengis.net/ows\" xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.0.2\" xsi:schemaLocation=\"http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd\"><ows:ServiceIdentification><ows:ServiceType>CSW"
-              }, {
-                auth : grunt.sensitiveConfig.test.auth,
-                protocol : "http",
-                port : 80,
-                path : "/reg/dataregistry/url",
-                query : {},
-                shouldStartWith : "[{\"CreateIndex"
               } ]
-
         }
       });
 
