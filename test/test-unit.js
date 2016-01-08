@@ -5,6 +5,9 @@ var options = grunt.config().clouddity;
 var expect = require("chai").expect;
 var SandboxedModule = require("sandboxed-module");
 
+// TODO: a mock Docker should be added to test the iterateOverClusterContainers
+// function
+
 // Test data
 var servers = require("./data/servers.json");
 var securitygroups = require("./data/securitygroups.json");
@@ -85,7 +88,7 @@ describe("clouddity", function() {
       });
     });
 
-    it("should return node data of all nodes in the cluster", function(done) {
+    it("should return node data of all nodes of the cluster", function(done) {
       var expDataIndex = 3;
       var expData = [ "oa-1-computing", "oa-2-computing", "oa-3-computing",
           "oa-1-loadbalancer" ];
@@ -101,7 +104,7 @@ describe("clouddity", function() {
       });
     });
 
-    it("should return node data of all nodes in the cluster #2",
+    it("should return node data of all nodes of the cluster #2",
         function(done) {
           var expDataIndex = 3;
           var expData = [ "oa-1-computing", "oa-2-computing", "oa-3-computing",
@@ -119,7 +122,7 @@ describe("clouddity", function() {
 
   describe("iterateOverSecurityGroups", function() {
 
-    it("should return node data of all security groups in the cluster",
+    it("should return node data of all security groups of the cluster",
         function(done) {
           var expDataIndex = 0;
           var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
@@ -135,7 +138,7 @@ describe("clouddity", function() {
           });
         });
 
-    it("should return node data of all security groups in the cluster #2",
+    it("should return node data of all security groups of the cluster #2",
         function(done) {
           var expDataIndex = 0;
           var expData = [ "oa-consul", "oa-dockerd", "oa-http", "oa-httplb" ];
@@ -152,18 +155,19 @@ describe("clouddity", function() {
 
   describe("iterateOverClusterImages", function() {
 
-    it("should return node data of all images in all the nodes in the cluster",
+    it("should return node data of all images on all the nodes of the cluster",
         function(done) {
           var expDataIndex = 0;
           utils.iterateOverClusterImages(grunt, options, function(data, cb) {
             expect(JSON.parse(JSON.stringify(data))).eql(
-                JSON.parse(JSON.stringify(iterateOverClusterImages[expDataIndex])));
+                JSON.parse(JSON
+                    .stringify(iterateOverClusterImages[expDataIndex])));
             expDataIndex++;
             cb();
           }, function(err) {
             done();
           });
-    });
+        });
   });
 
 });
