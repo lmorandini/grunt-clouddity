@@ -21,6 +21,7 @@
                         "80/tcp": {}
                     },
                     "HostConfig": {
+                        "Binds" : [ "/home/ubuntu/:/hostvolume" ],
                         "PortBindings": {
                             "80/tcp": [{
                                 "HostPort": "80"
@@ -90,6 +91,7 @@
                         "80/tcp": {}
                     },
                     "HostConfig": {
+                        "Binds" : [ "/home/ubuntu/:/hostvolume" ],
                         "PortBindings": {
                             "80/tcp": [{
                                 "HostPort": "80"
@@ -131,6 +133,7 @@
                         "80/tcp": {}
                     },
                     "HostConfig": {
+                        "Binds" : [ "/home/ubuntu/:/hostvolume" ],
                         "PortBindings": {
                             "80/tcp": [{
                                 "HostPort": "80"

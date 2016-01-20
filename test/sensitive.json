@@ -1,4 +1,9 @@
 {
+  "ssh" : {
+    "port" : 22,
+    "username" : "ubuntu",
+    "privateKeyFile" : "/home/lmorandini/.ssh/id_rsa"
+  },
   "pkgcloud" : {
     "availability_zone" : "melbourne-np",
     "key_name" : "lmorandini",

@@ -3,7 +3,7 @@
 module.exports = function(grunt) {
 
   // Custom config used by Grunt, useful to keep sensitive information
-  // such as credentials
+  // such as usernames, passwords,, SSH keys, etc.
   grunt.sensitiveConfig = grunt.file.readJSON("./test/sensitive.json");
 
   // General configuration of the module (image versions, etc)
@@ -45,6 +45,7 @@ module.exports = function(grunt) {
                         "80/tcp" : {}
                       },
                       HostConfig : {
+                        Binds : [ "/home/ubuntu/:/hostvolume" ],
                         PortBindings : {
                           "80/tcp" : [ {
                             HostPort : "80"
@@ -129,7 +130,9 @@ module.exports = function(grunt) {
             }
           },
 
-          // Types of node to provision
+          // Types of node to provision (the images property contains the images
+          // that are to be deployed on each node type. Replication is the
+          // number of nodes of the same type to provision
           nodetypes : [
               {
                 name : "computing",
@@ -145,6 +148,10 @@ module.exports = function(grunt) {
                 imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
                 flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
                 securitygroups : [ "default", "dockerd", "http" ],
+                copytohost : [ {
+                  from : "./target/nodetypes/loadbalancer",
+                  to : "/home/ubuntu/loadbalancer"
+                } ],
                 images : [ "apache", "consul" ],
                 // Test cases to execute to check the deployment success
                 test : [
