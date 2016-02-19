@@ -52,7 +52,10 @@ In addition, Docker containers can be stopped, started and removed.
 The final step is testing the cluster
 `grunt clouddity:test`
 
-It could be useful to chain together tasks using the `grunt.registerTask`, but some steps take some time to complete after the control has returtned to Grujnt, hence they should be separated by "wait" task (grunt-wait may come in handy).
+It could be useful to chain together tasks using the `grunt.registerTask`, but some steps take some time to complete after the control has returned to Grunt, hence they should be separated by "wait" task (grunt-wait may come in handy).
+
+The execution of some tasks (run, create, stop, start, remove) can be performed
+selectively only on node type using the `nodetype` switch. In addition, a single container can be targeted using the `containerid` switch, and a node as well with the `nodeid` switch (with the last two options, `nodetype` is ignored).
 
 
 ## Task reference
@@ -136,7 +139,7 @@ Remove all Docker containers.
 
 ### clouddity:test
 
-Tests the clujster using HTTP requests.
+Tests the cluster using HTTP requests.
 
 
 ## Installation
