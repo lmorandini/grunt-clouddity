@@ -81,22 +81,22 @@ describe(
             };
             it("should allow processing of this container", function(done) {
               expect(
-                  utils.isContainerToBeProcessed(grunt, "computing", "apache"))
-                  .equal(true);
+                  utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                      "apache", null)).equal(true);
               done();
             });
             it("should not allow processing of this container #1", function(
                 done) {
               expect(
-                  utils.isContainerToBeProcessed(grunt, "loadbalancer",
-                      "apache")).equal(false);
+                  utils.isContainerToBeProcessed(grunt, "loadbalancer", "abc",
+                      "apache", null)).equal(false);
               done();
             });
             it("should not allow processing of this container #2", function(
                 done) {
               expect(
-                  utils.isContainerToBeProcessed(grunt, "computing", "consul"))
-                  .equal(false);
+                  utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                      "consul", null)).equal(false);
               done();
             });
             it("should allow processing of this container #3", function(done) {
@@ -104,8 +104,8 @@ describe(
                 return "loadbalancer";
               };
               expect(
-                  utils.isContainerToBeProcessed(grunt, "computing", "apache"))
-                  .equal(false);
+                  utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                      "apache", null)).equal(false);
               done();
             });
             it(
@@ -115,8 +115,116 @@ describe(
                     return undefined;
                   };
                   expect(
-                      utils.isContainerToBeProcessed(grunt, "computing",
-                          "apache")).equal(true);
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", null)).equal(true);
+                  done();
+                });
+
+            it(
+                "should allow processing of this container when the container id the one given #1",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      return "123";
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(true);
+                  done();
+                });
+
+            it(
+                "should allow processing of this container when the container id the one given #2",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      return "123";
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(true);
+                  done();
+                });
+
+            it(
+                "should not allow processing of this container when the container id is not the one given",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      return "456";
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(false);
+                  done();
+                });
+
+            it(
+                "should allow processing of this container when the node id the one given #1",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      if (s === "containerid") {
+                        return null;
+                      } else {
+                        return "abc";
+                      }
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(true);
+                  done();
+                });
+
+            it(
+                "should allow processing of this container when the node id the one given #2",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      if (s === "containerid") {
+                        return "123";
+                      } else {
+                        return "abc";
+                      }
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(true);
+                  done();
+                });
+
+            it(
+                "should not allow processing of this container when the node id is not the one given",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "typenode") {
+                      return null;
+                    } else {
+                      if (s === "containerid") {
+                        return null;
+                      } else {
+                        return "def";
+                      }
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                          "apache", "123")).equal(false);
                   done();
                 });
           });
