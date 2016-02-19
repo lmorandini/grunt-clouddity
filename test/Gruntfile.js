@@ -156,6 +156,7 @@ module.exports = function(grunt) {
                 // Test cases to execute to check the deployment success
                 test : [
                     {
+                      name : "GetCapabilities",
                       auth : grunt.sensitiveConfig.test.auth,
                       protocol : "http",
                       port : 80,
@@ -168,6 +169,7 @@ module.exports = function(grunt) {
                       shouldStartWith : "<ows:"
                     },
                     {
+                      name : "GetFeature",
                       auth : grunt.sensitiveConfig.test.auth,
                       protocol : "http",
                       port : 80,
@@ -182,6 +184,7 @@ module.exports = function(grunt) {
                       shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wfs:FeatureCollection"
                     },
                     {
+                      name : "GetCapabilitiesWPS",
                       auth : grunt.sensitiveConfig.test.auth,
                       protocol : "http",
                       port : 80,
@@ -194,6 +197,7 @@ module.exports = function(grunt) {
                       shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                     },
                     {
+                      name : "GetCapabilitiesCSW",
                       auth : grunt.sensitiveConfig.test.auth,
                       protocol : "http",
                       port : 80,
@@ -205,6 +209,7 @@ module.exports = function(grunt) {
                       },
                       shouldStartWith : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><csw:Capabilities xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gmd=\"http://www.isotc211.org/2005/gmd\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ows=\"http://www.opengis.net/ows\" xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.0.2\" xsi:schemaLocation=\"http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd\"><ows:ServiceIdentification><ows:ServiceType>CSW"
                     }, {
+                      name : "dataregistry",
                       auth : grunt.sensitiveConfig.test.auth,
                       protocol : "http",
                       port : 80,
