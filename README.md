@@ -107,6 +107,11 @@ Deletes the security groups deployed on the cloud.
 Copies a series of files or directory from the development machine to the deployed nodes.
 
 
+### clouddity:addhosts
+
+Adds the cluster IP addresses to the each /etc/hosts of the nodes.
+
+
 ### clouddity:pull
 
 Pulls Docker images from a registry to all nodes in the cluster.
