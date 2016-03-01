@@ -52,6 +52,9 @@ In addition, Docker containers can be stopped, started and removed.
 The final step is testing the cluster
 `grunt clouddity:test`
 
+For every node types an Array of tests can be performed, with the result of every 
+request being tested either for containing a string, or starting with a string.
+
 It could be useful to chain together tasks using the `grunt.registerTask`, but some steps take some time to complete after the control has returned to Grunt, hence they should be separated by "wait" task (grunt-wait may come in handy).
 
 The execution of some tasks (run, create, stop, start, remove) can be performed
@@ -109,7 +112,8 @@ Copies a series of files or directory from the development machine to the deploy
 
 ### clouddity:addhosts
 
-Adds the cluster IP addresses to the each /etc/hosts of the nodes.
+Adds the cluster IP addresses to each `/etc/hosts` of the nodes (the cluster addresses
+take precedence, the existing `/etc/hosts` file being appended to the cluster addresses).
 
 
 ### clouddity:pull
