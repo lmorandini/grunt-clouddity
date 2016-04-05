@@ -44,7 +44,7 @@ grunt clouddity:pull
 grunt clouddity:run
 ```
 
-In addition, Docker containers can be stopped, started and removed.
+In addition, Docker containers can be stopped, started and removed. The containers are created and started according to the order the images are listed in the node type `images` property.
 
 
 ### Testing the cluster
@@ -183,31 +183,4 @@ con `sudo systemctl daemon-reload; sudo service docker restart`
 ### Unit Tests
 
 `npm test`
-
-
-
-
-
-
-
-
-
-
-  grunt.registerTask("listcontainers", [ "clouddity:listcontainers" ]);
-
-  // Docker containers creation
-  grunt.registerTask("run", [ "clouddity:run" ]);
-
-  // Docker containers management
-  grunt.registerTask("stop", [ "clouddity:stop" ]);
-  grunt.registerTask("start", [ "clouddity:start" ]);
-  grunt.registerTask("remove", [ "clouddity:remove" ]);
-
-
-  // Tests the deployed containers
-  grunt.registerTask("test", [ "clouddity:test" ]);
-
-
-
-
 
