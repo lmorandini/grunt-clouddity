@@ -66,7 +66,7 @@ selectively only on node type using the `nodetype` switch. In addition, a single
 
 ### clouddity:listnodes
 
-Prints some information about the nodes defined in the Gruntfile that are deployed on the cloud.
+Prints some information about the nodes defined in the Gruntfile that are deployed on the cloud. If the `hostsformat` option is used, the IP addresses and the hostnames are printed out in the format used by `/etc/hosts`.
 
 
 ### clouddity:createnodes
