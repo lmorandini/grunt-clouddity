@@ -46,6 +46,8 @@ grunt clouddity:run
 
 In addition, Docker containers can be stopped, started and removed. The containers are created and started according to the order the images are listed in the node type `images` property.
 
+For debugging purpose, the `verbose` Grunt option could be useful, since it makes Docker prints out more information.
+
 
 ### Testing the cluster
 

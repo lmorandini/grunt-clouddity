@@ -1,6 +1,6 @@
 {
   "name" : "grunt-clouddity",
-  "version" : "0.4.1",
+  "version" : "0.4.2",
   "description" : "Grunt tasks to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.",
   "private" : false,
   "author" : {
