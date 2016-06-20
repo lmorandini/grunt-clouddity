@@ -1,0 +1,32 @@
+{
+  "ecmaVersion": 5,
+  "plugins": {
+    "guess-types": {
+      
+    },
+    "outline": {
+      
+    },
+    "doc_comment": {
+      
+    },
+    "jshint": {
+      
+    },
+    "node": {
+      
+    },
+    "node-express": {
+      
+    },
+    "grunt": {
+      
+    }
+  },
+  "libs": [
+    "ecma5",
+    "underscore",
+    "ecma6",
+    "chai"
+  ]
+}
