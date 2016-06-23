@@ -25,3 +25,19 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+
+# Optional npm cache directory
+.npm
+.tern-project
+
+# Optional REPL history
+.node_repl_history
+
+# Sensitive information
+sensitive.json
+
+# Temporary files
+tmp
+
+# Eclipse
+/.project
