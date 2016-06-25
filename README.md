@@ -181,6 +181,8 @@ con `sudo systemctl daemon-reload; sudo service docker restart`
 
 ## Testing
 
+Mocha needs to be installed globally to run the tests (`npm install -g mocha `).
+ 
 
 ### Unit Tests
 
