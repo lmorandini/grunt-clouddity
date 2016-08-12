@@ -153,6 +153,15 @@ Remove all Docker containers.
 Tests the cluster using HTTP requests.
 
 
+### clouddity:exec
+
+Execute a command on deployed containers (the command is taken from the Grunt `command` options), as in:
+
+`grunt clouddity:exec --nodetype dbserver --command "/load-data.sh"`
+
+(Usually the `nodetype` option is added, since commands are image-specific.)
+
+
 ## Installation
 
 
