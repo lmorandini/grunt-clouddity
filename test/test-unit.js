@@ -1,7 +1,6 @@
 var grunt = require("grunt");
 var gruntFile = require("./Gruntfile.js")(grunt);
 var options = grunt.config().clouddity;
-
 var expect = require("chai").expect;
 var SandboxedModule = require("sandboxed-module");
 
@@ -76,10 +75,23 @@ describe(
       describe(
           "selective processing function",
           function() {
-            grunt.option = function() {
-              return "computing";
-            };
             it("should allow processing of this container", function(done) {
+              grunt.option = function(s) {
+                if (s === "nodetype") {
+                  return "computing";
+                } else {
+                  if (s === "nodeid") {
+                    return undefined;
+                  } else {
+                    return "123";
+                  }
+                  if (s === "containerid") {
+                    return undefined;
+                  } else {
+                    return "456";
+                  }
+                }
+              };
               expect(
                   utils.isContainerToBeProcessed(grunt, "computing", "abc",
                       "apache", null)).equal(true);
@@ -87,6 +99,22 @@ describe(
             });
             it("should not allow processing of this container #1", function(
                 done) {
+              grunt.option = function(s) {
+                if (s === "nodetype") {
+                  return "computing";
+                } else {
+                  if (s === "nodeid") {
+                    return undefined;
+                  } else {
+                    return "123";
+                  }
+                  if (s === "containerid") {
+                    return undefined;
+                  } else {
+                    return "456";
+                  }
+                }
+              };
               expect(
                   utils.isContainerToBeProcessed(grunt, "loadbalancer", "abc",
                       "apache", null)).equal(false);
@@ -124,8 +152,8 @@ describe(
                 "should allow processing of this container when the container id the one given #1",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       return "123";
                     }
@@ -140,8 +168,8 @@ describe(
                 "should allow processing of this container when the container id the one given #2",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       return "123";
                     }
@@ -156,8 +184,8 @@ describe(
                 "should not allow processing of this container when the container id is not the one given",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       return "456";
                     }
@@ -172,11 +200,11 @@ describe(
                 "should allow processing of this container when the node id the one given #1",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       if (s === "containerid") {
-                        return null;
+                        return undefined;
                       } else {
                         return "abc";
                       }
@@ -192,8 +220,8 @@ describe(
                 "should allow processing of this container when the node id the one given #2",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       if (s === "containerid") {
                         return "123";
@@ -212,11 +240,11 @@ describe(
                 "should not allow processing of this container when the node id is not the one given",
                 function(done) {
                   grunt.option = function(s) {
-                    if (s === "typenode") {
-                      return null;
+                    if (s === "nodetype") {
+                      return undefined;
                     } else {
                       if (s === "containerid") {
-                        return null;
+                        return undefined;
                       } else {
                         return "def";
                       }
@@ -229,6 +257,77 @@ describe(
                 });
           });
 
+      describe(
+          "selective node processing function",
+          function() {
+            it("should allow processing of this node", function(done) {
+              grunt.option = function(s) {
+                if (s === "nodetype") {
+                  return "computing";
+                } else {
+                  return "abc";
+                }
+              };
+              expect(
+                  utils.isNodeToBeProcessed(grunt, "computing", "abc")).equal(true);
+              done();
+            });
+            it("should not allow processing of this node", function(
+                done) {
+              grunt.option = function(s) {
+                if (s === "nodetype") {
+                  return "computing";
+                } else {
+                  return "abc";
+                }
+              };
+              expect(
+                  utils.isNodeToBeProcessed(grunt, "loadbalancer", "abc")).equal(true);
+              done();
+            });
+            it(
+                "should allow processing of this node when the typename option is not defined #1",
+                function(done) {
+                  grunt.option = function() {
+                    return undefined;
+                  };
+                  expect(
+                      utils.isNodeToBeProcessed(grunt, "computing", "abc")).equal(true);
+                  done();
+                });
+
+            it(
+                "should allow processing of this node when the node id the one given #1",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "nodetype") {
+                      return undefined;
+                    } else {
+                      return "abc";
+                    }
+                  };
+                  expect(
+                      utils.isNodeToBeProcessed(grunt, "computing", "abc")).equal(true);
+                  done();
+                });
+
+            it(
+                "should not allow processing of this node when the node id is not the one given",
+                function(done) {
+                  grunt.option = function(s) {
+                    if (s === "nodetype") {
+                      return undefined;
+                    } else {
+                      return "cde";
+                    }
+                  };
+                  expect(
+                      utils.isContainerToBeProcessed(grunt, "computing", "abc")).equal(false);
+                  done();
+                });
+
+          });
+      
       describe("iterateOverNodes", function() {
 
         it("should return node data of selected nodes", function(done) {
