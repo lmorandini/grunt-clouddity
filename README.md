@@ -13,6 +13,50 @@ A given order must be observer when building and running Docker containers on th
 
 NOTE: To identify nodes, each is given an hostname composed by the cluster name and the node type: `<cluster name>-<sequence number>-<node type name>`
 
+NOTE: to access VMs that are hidden behind a firewall, SSH tunnels can be used to operate on the cluster.
+
+The first step is destroy existing SSG tunnels (if any), and create new ones, as in>
+```
+ps aux | grep "admin@vhprod" | sed -e "s/\s/|/g" | cut -f 2 -d'|' | xargs -i kill {}
+ssh -f admin@vhprod-1-loadbalancer -L 2377:vh-1-apiserver:2375 -N
+ssh -f admin@vhprod-1-loadbalancer -L 2277:vh-1-apiserver:22 -N
+```
+There need to be two ports open (SSH and Docker API), and the hostnames (vh-1-apiserver, vh-2-apiserver) are 
+the ones on the VMs network (the network vhprod-1-loadbalancer -acting as gateway- sits). 
+
+The second step is to add a `clusterAliases` property to the Gruntfile, defining the VMs of every cluster hidden behind a firewall:
+```
+  "clusterAliases" : {
+    "vhprod" : {
+      "ssh" : {
+        "username" : "admin",
+        "privateKeyFile" : "~/.ssh/id_rsa_admin"
+      },
+      "nodes" : [ {
+        "id" : "vhprod-1-loadbalancer-1",
+        "name" : "vhprod-1-loadbalancer",
+        "hostId" : "vhprod-1-loadbalancer-1",
+        "addresses" : {
+          "public" : [ "localhost" ],
+          "private" : [],
+          "dockerPort" : 2376,
+          "sshPort" : 2276
+        }
+      }, {
+        "id" : "vhprod-1-apiserver-2",
+        "name" : "vhprod-1-apiserver",
+        "hostId" : "vhprod-1-apiserver-2",
+        "addresses" : {
+          "public" : [ "localhost" ],
+          "private" : [],
+          "dockerPort" : 2377,
+          "sshPort" : 2277
+        }
+      }]
+    }
+```
+From now on, by specifying the `cluster` Grunt option and setting it to `vhprod`, the SSH tunnels will be used to manage the VMs behind the firewall. 
+
 
 ### Provisioning
 

@@ -1,8 +1,10 @@
 var grunt = require("grunt");
 var gruntFile = require("./Gruntfile.js")(grunt);
+var customConfig = require("./custom-configuration.json");
 var options = grunt.config().clouddity;
 var expect = require("chai").expect;
 var SandboxedModule = require("sandboxed-module");
+var _= require("underscore");
 
 // TODO: a mock Docker should be added to test the iterateOverClusterContainers
 // function
@@ -448,4 +450,24 @@ describe(
                 });
           });
 
+      describe("iterateOverNodesWithSSHAlias", function() {
+        it("should return node data of selected nodes with SSH alias", function(done) {
+          var n=0;
+          var nodeNames= [ "oaalias-1-computing", "oaalias-2-computing", "oaalias-3-computing", "oaalias-1-loadbalancer" ];
+          utils.iterateOverNodes(
+              _.extend(options, {cluster: "oaalias",  clusterAliases: grunt.customConfig.clusterAliases["oaalias"]}), 
+              function(node) {
+                return true;
+          }, function(data, cb) {
+            expect(nodeNames.indexOf(data.node.name) >= 0).equal(true);
+            n++;
+            cb();
+          }, function(err) {
+            expect(err).equal(null);
+            expect(n).equal(nodeNames.length);
+            done();
+          });
+        });
+
+      });
     });

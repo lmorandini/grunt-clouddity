@@ -49,6 +49,10 @@
       "address" : "115.146.95.21",
       "type" : "loadbalancer"
     },
+    "ssh" : {
+      "host" : "115.146.95.21",
+      "port" : 22
+    },
     "images" : [ "apache", "consul" ],
     "docker" : {
       "protocol" : "http",
@@ -105,6 +109,10 @@
       "name" : "oa-1-loadbalancer",
       "address" : "115.146.95.21",
       "type" : "loadbalancer"
+    },
+    "ssh" : {
+      "host" : "115.146.95.21",
+      "port" : 22
     },
     "images" : [ "apache", "consul" ],
     "docker" : {
@@ -164,6 +172,10 @@
       "address" : "115.146.95.215",
       "type" : "computing"
     },
+    "ssh" : {
+      "host" : "115.146.95.215",
+      "port" : 22
+    },
     "images" : [ "apache" ],
     "docker" : {
       "protocol" : "http",
@@ -222,6 +234,10 @@
       "address" : "115.146.95.214",
       "type" : "computing"
     },
+    "ssh" : {
+      "host" : "115.146.95.214",
+      "port" : 22
+    },
     "images" : [ "apache" ],
     "docker" : {
       "protocol" : "http",
@@ -279,6 +295,10 @@
       "name" : "oa-1-computing",
       "address" : "115.146.95.208",
       "type" : "computing"
+    },
+    "ssh" : {
+      "host" : "115.146.95.208",
+      "port" : 22
     },
     "images" : [ "apache" ],
     "docker" : {

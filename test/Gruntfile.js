@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 
 module.exports = function(grunt) {
 
@@ -101,8 +101,8 @@ module.exports = function(grunt) {
           // Name of cluster to build (server names are composed as <cluster
           // name>-<node type increment number>-<node type>, i.e.:
           // "oa-1-computing")
-          cluster : "oa",
-
+          clusterAliases: grunt.customConfig.clusterAliases[grunt.option("cluster") || "vh"],
+ 
           // Security groups as defined by PkgCloud
           securitygroups : {
             dockerd : {
