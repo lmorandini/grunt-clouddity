@@ -83,19 +83,15 @@ describe(
                   return "computing";
                 } else {
                   if (s === "nodeid") {
-                    return undefined;
-                  } else {
                     return "123";
                   }
                   if (s === "containerid") {
-                    return undefined;
-                  } else {
                     return "456";
                   }
                 }
               };
               expect(
-                  utils.isContainerToBeProcessed(grunt, "computing", "abc",
+                  utils.isContainerToBeProcessed(grunt, "computing", "123",
                       "apache", null)).equal(true);
               done();
             });
@@ -106,13 +102,9 @@ describe(
                   return "computing";
                 } else {
                   if (s === "nodeid") {
-                    return undefined;
-                  } else {
                     return "123";
                   }
                   if (s === "containerid") {
-                    return undefined;
-                  } else {
                     return "456";
                   }
                 }
@@ -124,6 +116,18 @@ describe(
             });
             it("should not allow processing of this container #2", function(
                 done) {
+              grunt.option = function(s) {
+                if (s === "nodetype") {
+                  return "computing";
+                } else {
+                  if (s === "nodeid") {
+                    return "123";
+                  }
+                  if (s === "containerid") {
+                    return "456";
+                  }
+                }
+              };
               expect(
                   utils.isContainerToBeProcessed(grunt, "computing", "abc",
                       "consul", null)).equal(false);
