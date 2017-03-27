@@ -57,6 +57,37 @@ The second step is to add a `clusterAliases` property to the Gruntfile, defining
 ```
 From now on, by specifying the `cluster` Grunt option and setting it to `vhprod`, the SSH tunnels will be used to manage the VMs behind the firewall. 
 
+To add some more run-time flexibility, EJS templates (http://ejs.co/) can be used in the options of Clouddity commands in the Gruntfile. 
+The object which is passed to the template containes data about the current node being processed, more specifically:
+```
+"clouddityRuntime": {
+    "node": {
+      "node": {
+        "id": "74e6b162-7047-4f3d-bcc7-dd018325cbd9",
+        "name": "ccdev-1-couchdbc",
+        "address": "115.146.94.3",
+        "type": "couchdbc"
+      },
+      "images": ["couchdbc"],
+      "ssh": {
+        "host": "115.146.94.3",
+        "port": 22,
+        "username": "ubuntu",
+        "privateKeyFile": "/home/lmorandini/.ssh/id_rsa"
+      },
+      "docker": {
+        "protocol": "http",
+        "host": "115.146.94.3",
+        "port": 2375
+      }
+    }
+  }
+  ```
+
+For instance, the actual node IP address can be passed when creating Docker containers by inserting this fragment in the Gruntfile:
+```
+
+```
 
 ### Provisioning
 
@@ -108,6 +139,16 @@ selectively only on node type using the `nodetype` switch. In addition, a single
 
 
 ## Task reference
+
+
+### clouddity:listimages
+
+Print some information on the images available on the cloud provider.
+
+
+### clouddity:listflavors
+
+Print some information on the flavors of the images available on the cloud provider.
 
 
 ### clouddity:listnodes

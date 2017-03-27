@@ -1,6 +1,6 @@
 {
   "name" : "grunt-clouddity",
-  "version" : "0.7.1",
+  "version" : "0.8.0-SNAPSHOT",
   "description" : "Grunt tasks to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.",
   "private" : false,
   "license": "Apache-2.0",
@@ -22,7 +22,8 @@
     "grunt-ejs" : "^0.3.0",
     "grunt-pkgcloud" : "git+https://github.com/lmoran/grunt-pkgcloud#master",
     "pkgcloud" : "git+https://github.com/lmoran/pkgcloud#master",
-    "underscore" : "1.8.3"
+    "underscore" : "1.8.3",
+    "ejs": "^2.5.6"
   },
   "devDependencies" : {
     "chai": "3.4.1",
