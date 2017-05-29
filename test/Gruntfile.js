@@ -130,6 +130,16 @@ module.exports = function(grunt) {
             }
           },
 
+        // External volumes to be attached to the node (see the volumes Array in nodetypes) 
+        volumetypes : [ {
+          name : "dbdata",
+          size : 1,
+          description : "CouchDB Data",
+          availability_zone : grunt.sensitiveConfig.pkgcloud.availability_zone,
+          mountpoint: "/hostvolume",
+          fstype: "ext4"
+        } ],
+
           // Types of node to provision (the images property contains the images
           // that are to be deployed on each node type. Replication is the
           // number of nodes of the same type to provision
@@ -140,7 +150,8 @@ module.exports = function(grunt) {
                 imageRef : "81f6b78f-6d51-4de9-a464-91d47543d4ba",
                 flavorRef : "885227de-b7ee-42af-a209-2f1ff59bc330",
                 securitygroups : [ "default", "dockerd" ],
-                images : [ "apache" ]
+                images : [ "apache" ],
+                volumes : [ "dbdata" ]
               },
               {
                 name : "loadbalancer",
