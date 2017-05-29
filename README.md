@@ -138,6 +138,12 @@ The execution of some tasks (run, create, stop, start, remove) can be performed
 selectively only on node type using the `nodetype` switch. In addition, a single container can be targeted using the `containerid` switch, and a node as well with the `nodeid` switch (with the last two options, `nodetype` is ignored).
 
 
+### Gruntfile examples 
+
+XXX TODO
+See in the tests directory
+
+
 ## Task reference
 
 
@@ -245,6 +251,15 @@ Execute a command on deployed containers (the command is taken from the Grunt `c
 `grunt clouddity:exec --nodetype dbserver --command "/load-data.sh"`
 
 (Usually the `nodetype` option is added, since commands are image-specific.)
+
+
+### clouddity:execnodes
+
+Execute a command on deployed nodes (not containers as exec) the command is taken from the Grunt `command` options), as in:
+
+`>grunt clouddity:execnodes --nodetype db --command "echo 'ok' > /home/ubuntu/a.txt`
+
+(Usually the `nodetype` option is added, but `nodeid` could be used as well)
 
 
 ## Installation
