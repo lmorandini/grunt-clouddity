@@ -162,11 +162,6 @@ Print some information on the flavors of the images available on the cloud provi
 Prints some information about the nodes defined in the Gruntfile that are deployed on the cloud. If the `hosts-format` option is used, the IP addresses and the hostnames are printed out in the format used by `/etc/hosts`.
 
 
-### clouddity:listvolumes
-
-Prints some information about the volumes defined in the cluster.
-
-
 ### clouddity:createnodes
 
 Creates on the cloud the nodes as defined in the Gruntfile.
@@ -262,24 +257,9 @@ Execute a command on deployed containers (the command is taken from the Grunt `c
 
 Execute a command on deployed nodes (not containers as exec) the command is taken from the Grunt `command` options), as in:
 
-`>grunt clouddity:execnodes --nodetype db --command "echo 'ok' > /home/ubuntu/a.txt`
+`grunt clouddity:execnodes --nodetype db --command "echo 'ok' > /home/ubuntu/a.txt"`
 
 (Usually the `nodetype` option is added, but `nodeid` could be used as well)
-
-
-### clouddity:createvolumes
-
-Create the volumes.
-
-
-### clouddity:attachvolumes
-
-Attach volumes to nodes as devices.
-
-
-### clouddity:mountvolumes
-
-Create the mountpoint directory, format the device, and mount the device to the enpoint for every volume of every node that has volumes.
 
 
 ## Installation

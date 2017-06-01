@@ -135,7 +135,8 @@ module.exports = function(grunt) {
           name : "dbdata",
           size : 1,
           description : "CouchDB Data",
-          availability_zone : grunt.sensitiveConfig.pkgcloud.availability_zone,
+          volumeType: grunt.sensitiveConfig.pkgcloud.volume_type,
+          availability_zone : grunt.sensitiveConfig.pkgcloud.availability_zone_volume,
           mountpoint: "/hostvolume",
           fstype: "ext4"
         } ],
