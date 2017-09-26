@@ -134,8 +134,10 @@ request being tested either for containing a string, or starting with a string.
 
 It could be useful to chain together tasks using the `grunt.registerTask`, but some steps take some time to complete after the control has returned to Grunt, hence they should be separated by "wait" task (grunt-wait may come in handy).
 
-The execution of some tasks (run, create, stop, start, remove) can be performed
-selectively only on node type using the `nodetype` switch. In addition, a single container can be targeted using the `containerid` switch, and a node as well with the `nodeid` switch (with the last two options, `nodetype` is ignored).
+The execution of the `createnodes` task can be performed selectively only on a node type using the `nodetype` switch.
+
+The execution of some Dpcker tasks (`run`, `create`, `stop`, `start`, `remove`) can be performed
+selectively only on a node type using the `nodetype` switch. In addition, a single container can be targeted using the `containerid` switch, and a node as well with the `nodeid` switch (with the last two options, `nodetype` is ignored).
 
 
 ### Gruntfile examples 
@@ -248,9 +250,16 @@ Tests the cluster using HTTP requests.
 
 Execute a command on deployed containers (the command is taken from the Grunt `command` options), as in:
 
-`grunt clouddity:exec --nodetype dbserver --command "/load-data.sh"`
+`grunt clouddity:exec --containerid <container id> --command "/load-data.sh"`
 
 (Usually the `nodetype` option is added, since commands are image-specific.)
+
+
+### clouddity:logs
+
+Returns the logs of a given container:
+
+`grunt clouddity:logs --containerid <container id> `
 
 
 ### clouddity:execnodes
