@@ -40,4 +40,8 @@ sensitive.json
 tmp
 
 # Eclipse
-/.project
+.project
+.settings/
+
+# WebStorm
+.idea/
