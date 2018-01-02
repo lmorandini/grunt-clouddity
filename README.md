@@ -89,6 +89,43 @@ For instance, the actual node IP address can be passed when creating Docker cont
 
 ```
 
+### initial setup of VMs
+
+In sensitive.json there is a user_data property that contains, encoded in base64, the instructions to setup Docker (on the non-default 3375 port) and secure it via HaProxy (on the usual 2375 port):
+(The password is sha-512, encoded with `mkpasswd -m sha-512 <password>` .)
+```
+#!/bin/sh
+set -x
+echo "post-installation started..."
+sudo rm -f /var/lib/dpkg/lock
+sudo apt-get update
+
+sudo apt-get install haproxy -y
+HAPCFG=/etc/haproxy/haproxy.cfg
+echo 'userlist UsersFor_Ops' | sudo tee --append ${HAPCFG}
+echo '   group AdminGroup users docker' | sudo tee --append ${HAPCFG}
+echo '   user docker password $6$JrosxjE0xDL.a6F3$gR5nHOpi7bAsaTmNXMdGHR/o/rfCAMyU01/p8kNxSnC0jB0b/3JXB5BZETlFZdRUP4AFQ6Ny0zYlQKeXgk3tq.'  | sudo tee --append ${HAPCFG}
+echo 'frontend http' | sudo tee --append ${HAPCFG} 
+echo '   bind 0.0.0.0:2375' | sudo tee --append ${HAPCFG}
+echo '   use_backend docker' | sudo tee --append ${HAPCFG}
+echo 'backend docker' | sudo tee --append ${HAPCFG} 
+echo '   server localhost localhost:3375'  | sudo tee --append ${HAPCFG} 
+echo '   acl AuthOkay_Ops http_auth(UsersFor_Ops)'  | sudo tee --append ${HAPCFG}
+echo '   http-request auth realm MyAuthRealm if !AuthOkay_Ops'  | sudo tee --append ${HAPCFG}
+sudo service haproxy restart
+
+sudo apt-get install docker.io -y -f
+sudo usermod -aG docker ubuntu
+echo  'DOCKER_OPTS="-H tcp://0.0.0.0:3375 -H unix:///var/run/docker.sock --insecure-registry cuttlefish.eresearch.unimelb.edu.au --insecure-registry docker.eresearch.unimelb.edu.au --log-opt max-size=10m --log-opt max-file=3"' | sudo tee --append /etc/default/docker
+sudo openssl s_client -showcerts -connect docker.eresearch.unimelb.edu.au:443 < /dev/null 2> /dev/null | openssl x509 -outform PEM > eresearch.crt
+sudo cp eresearch.crt /usr/local/share/ca-certificates
+sudo update-ca-certificates
+sudo service docker restart
+sudo sed -i 's/.*127.0.1.1/#&/' /etc/hosts
+echo "post-installation done"
+``` 
+
+ 
 ### Provisioning
 
 The usual procedure for deploying a cluster is:
