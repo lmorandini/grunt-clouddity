@@ -78,7 +78,8 @@ The object which is passed to the template containes data about the current node
       "docker": {
         "protocol": "http",
         "host": "115.146.94.3",
-        "port": 2375
+        "port": 2375,
+        "auth": "username:password"
       }
     }
   }
@@ -121,6 +122,7 @@ sudo openssl s_client -showcerts -connect docker.eresearch.unimelb.edu.au:443 < 
 sudo cp eresearch.crt /usr/local/share/ca-certificates
 sudo update-ca-certificates
 sudo service docker restart
+sudo docker ps
 sudo sed -i 's/.*127.0.1.1/#&/' /etc/hosts
 echo "post-installation done"
 ``` 
