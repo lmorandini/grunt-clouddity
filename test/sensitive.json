@@ -33,7 +33,8 @@
       "auth" : {
         "email" : "test@test.com",
         "username" : "deployer",
-        "password" : "passwd"
+        "password" : "passwd",
+        "headers": {"Authorization": "Basic base64-username:password"}
       }
     }
   },
