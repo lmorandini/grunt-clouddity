@@ -1,0 +1,10 @@
+{
+  "listsecuritygroups": [
+    "openstack",
+    "security group list --all-projects"
+  ],
+  "version": [
+    "openstack",
+    "--version"
+  ]
+}

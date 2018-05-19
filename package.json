@@ -1,7 +1,7 @@
 {
   "name": "grunt-clouddity",
-  "version": "0.12.0",
-  "description": "Grunt tasks to ease the deployment of application on clusters using Grunt, Docker and PkgCloud.",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "Grunt tasks to ease the deployment of application on clusters using Grunt, OpenStack, and Docker Swarm.",
   "private": false,
   "license": "Apache-2.0",
   "author": {
@@ -9,27 +9,20 @@
     "email": "lmorandini@ieee.org"
   },
   "engines": {
-    "node": ">= 4.2.2"
+    "node": ">= 8.7.x",
+    "npm": ">= 6.0.x"
   },
   "dependencies": {
-    "async": "1.5.0",
-    "dockerode": "git+https://github.com/lmoran/dockerode.git#master",
-    "ejs": "^2.5.7",
-    "grunt": "1.0.x",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-dock": "git+https://github.com/lmoran/grunt-dock.git#master",
-    "grunt-ejs": "^0.3.0",
-    "grunt-pkgcloud": "git+https://github.com/lmoran/grunt-pkgcloud.git#master",
-    "pkgcloud": "git+https://github.com/lmoran/pkgcloud.git#master",
-    "underscore": "1.8.3"
+    "grunt": "~0.4.x",
+    "grunt-exec": "^3.0.0",
+    "json-file-import": "github:lmoran/json-file-import#master",
+    "underscore": "~1.9.x"
   },
   "devDependencies": {
     "chai": "3.4.1",
-    "sandboxed-module": "2.0.3"
+    "mocha": "2.3.3"
   },
   "scripts": {
-    "test": "mocha --reporter spec --no-colors ./test/test-*.js"
+    "test": "mocha --no-colors"
   }
 }
