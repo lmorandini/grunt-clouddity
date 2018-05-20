@@ -1,10 +1,9 @@
 {
   "listsecuritygroups": [
-    "openstack",
-    "security group list --all-projects"
+    "security group",
+    "list --all-projects"
   ],
   "version": [
-    "openstack",
     "--version"
   ]
 }

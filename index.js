@@ -33,41 +33,50 @@ const optionsToCLISwitches = ({optionsArr, singleDashOptions = openstackSingleDa
  * or an output type
  *
  * @param grunt {Object} Grunt singleton
- * @param cmd {String} Command and fixed options
- * @param auth {Object} Authorization options
+ * @param obj {String} Object the action acts upom
+ * @param cmd {String} Command to execute
+ * @param globalOptions {Object} Gloabl options (mainly Authorization)
  * @param options {Object} Other options
  * @param output {String} object type as per OpenStack CLI
  * @param callback {Function} Function to execute upon commmand termination
  * @returns {{cmd: (function(): string), stdout: boolean, callback: Function}}
  */
-const executeTask = ({grunt, cmd, auth, options = {}, output = 'table', callback}) => {
-  return {
-    cmd: () => {
-      return cmd.concat(
-        optionsToCLISwitches({optionsArr: [auth, options, {f: _.isFunction(callback) ? 'json' : output}]}))
-        .concat([grunt.option('verbose') ? '--debug' : '']).join(' ');
-    },
-    stdout: false,
-    callback: _.isFunction(callback) ? callback :
-      (error, stdout, stderr) => {
-        if (error) {
-          grunt.log.error(error);
-        } else {
-          grunt.log.ok(stdout);
+const executeOSTask = ({grunt, obj, cmd, globalOptions, options = {}, output = 'table', callback}) => {
+    const debugFlag = _.isUndefined(grunt.option('verbose')) ? false : grunt.option('verbose');
+    const cmdString = ['openstack'].concat(
+      optionsToCLISwitches({optionsArr: [globalOptions]})).concat(
+      [obj, cmd]).concat(
+      optionsToCLISwitches({optionsArr: [options, {f: _.isFunction(callback) ? 'json' : output}]}))
+      .concat([grunt.option('verbose') ? '--debug' : '']).join(' ');
+    if (debugFlag) {
+      grunt.log.ok(`>>>> COMMAND: ${cmdString}`);
+    }
+    return {
+      command: () => {
+        return cmdString;
+      },
+      stdout: debugFlag,
+      callback: _.isFunction(callback) ? callback :
+        (error, stdout, stderr) => {
+          if (error) {
+            grunt.log.error(error);
+          } else {
+            grunt.log.ok(stdout);
+          }
         }
-      }
+    }
   }
-};
+;
 
 /**
  * Returns an Object of Grunt tasks: one for every command in openstack_commands
  */
 module.exports = _.mapObject(openstack_commands,
   (val, key) => {
-    return ({grunt, auth, options = {}, output, callback}) => {
-      return executeTask({
-        grunt, cmd: val,
-        auth, options, output, callback
+    return ({grunt, globalOptions, options = {}, output, callback}) => {
+      return executeOSTask({
+        grunt, obj: val[0], cmd: val[1] ? val[1] : "",
+        globalOptions, options, output, callback
       });
     }
   }

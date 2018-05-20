@@ -7,13 +7,13 @@
     "master-count": 1,
     "node-count": 1
   },
-  "osAuth": {
+  "osGlobalOptions": {
     "os-auth-url": "@import!../../test/config/secrets.json#os-auth-url",
     "os-project-domain-name": "default",
     "os-user-domain-name": "default",
     "os-project-name": "@import!../../test/config/secrets.json#os-project-name",
     "os-username": "@import!../../test/config/secrets.json#os-username",
     "os-password": "@import!../../test/config/secrets.json#os-password",
-    "keypair": "@import!../../test/config/secrets.json#keypair"
+    "os-identity-api-version" :"@import!../../test/config/secrets.json#os-identity-api-version"
   }
 }

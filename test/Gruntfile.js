@@ -19,18 +19,22 @@ module.exports = function (grunt) {
     },
 
     exec: {
-      version: clouddity.version({grunt: grunt, auth: grunt.swarmConfig.osAuth}),
+      version: clouddity.version({grunt: grunt, globalOptions: grunt.swarmConfig.osGlobalOptions}),
 
       listsecuritygroups: clouddity.listsecuritygroups(
-        {grunt: grunt, auth: grunt.swarmConfig.osAuth}),
+        {grunt: grunt, globalOptions: grunt.swarmConfig.osGlobalOptions}),
 
       listsecuritygroups2: clouddity.listsecuritygroups(
         {
-          grunt: grunt, auth: grunt.swarmConfig.osAuth,
+          grunt: grunt, globalOptions: grunt.swarmConfig.osGlobalOptions,
           callback: (err, o, e) => {
             console.log(`****** ${o}`);
           }
         })
+
     }
   });
+
+  grunt.registerTask('test', ['exec:version',
+    'exec:listsecuritygroups', 'exec:listsecuritygroups2']);
 };

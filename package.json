@@ -13,7 +13,7 @@
     "npm": ">= 6.0.x"
   },
   "dependencies": {
-    "grunt": "~0.4.x",
+    "grunt": "~1.0.x",
     "grunt-exec": "^3.0.0",
     "json-file-import": "github:lmoran/json-file-import#master",
     "underscore": "~1.9.x"
@@ -23,6 +23,7 @@
     "mocha": "2.3.3"
   },
   "scripts": {
-    "test": "mocha --no-colors"
+    "test": "grunt --gruntfile ./test/Gruntfile.js test --no-color",
+    "debug": "grunt --gruntfile ./test/Gruntfile.js test --no-color --verbose"
   }
 }
