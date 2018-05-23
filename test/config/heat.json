@@ -1,0 +1,11 @@
+{
+  "version": "pike",
+  "heatGlobalOptions": {
+    "os-auth-url": "@import!secrets.json#os-auth-url",
+    "os-project-domain-name": "default",
+    "os-user-domain-name": "default",
+    "os-project-name": "@import!secrets.json#os-project-name",
+    "os-username": "@import!secrets.json#os-username",
+    "os-password": "@import!secrets.json#os-password"
+  }
+}

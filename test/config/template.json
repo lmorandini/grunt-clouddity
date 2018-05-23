@@ -1,0 +1,14 @@
+{
+  "heat_template_version": "@import!openstack.json#heat.version",
+  "description": "Simple template to deploy a single compute instance",
+  "resources": {
+    "my_instance": {
+      "type": "OS::Nova::Server",
+      "properties": {
+        "key_name": "@import!secrets.json#keypair",
+        "image": "d6929048-3a81-4bf7-b5ef-d69bd67219ba",
+        "flavor": "m1.small"
+      }
+    }
+  }
+}

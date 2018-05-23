@@ -7,6 +7,10 @@
     "master-count": 1,
     "node-count": 1
   },
+  "heat": {
+    "version": "pike"
+  },
+  "security-groups": "@import!security-groups",
   "osGlobalOptions": {
     "os-auth-url": "@import!secrets.json#os-auth-url",
     "os-project-domain-name": "default",
@@ -14,6 +18,6 @@
     "os-project-name": "@import!secrets.json#os-project-name",
     "os-username": "@import!secrets.json#os-username",
     "os-password": "@import!secrets.json#os-password",
-    "os-identity-api-version" :"@import!secrets.json#os-identity-api-version"
+    "os-identity-api-version": "@import!secrets.json#os-identity-api-version"
   }
 }

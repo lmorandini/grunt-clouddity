@@ -1,9 +1,0 @@
-{
-  "listsecuritygroups": [
-    "security group",
-    "list --all-projects"
-  ],
-  "version": [
-    "--version"
-  ]
-}

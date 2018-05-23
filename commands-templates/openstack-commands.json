@@ -1,0 +1,29 @@
+{
+  "version": [
+    "--version"
+  ],
+  "listservers": [
+    "server",
+    "list --project-domain <%= options['os-project-name'] %>"
+  ],
+  "listrouters": [
+    "router",
+    "list --project-domain <%= options['os-project-name'] %>"
+  ],
+  "listsecuritygroups": [
+    "security group",
+    "list --project-domain <%= options['os-project-name'] %>"
+  ],
+  "listsecuritygrouprules": [
+    "security group rule",
+    "list --all-projects"
+  ],
+  "listflavors": [
+    "flavor",
+    "list --all --long"
+  ],
+  "listimages": [
+    "image",
+    "list --public --sort id --status active"
+  ]
+}
