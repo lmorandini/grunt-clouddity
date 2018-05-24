@@ -25,5 +25,9 @@
   "listimages": [
     "image",
     "list --public --sort id --status active"
+  ],
+  "stackcreate": [
+    "stack create <%=options.stack_name%>",
+    "--template <%=options.template%>"
   ]
 }
