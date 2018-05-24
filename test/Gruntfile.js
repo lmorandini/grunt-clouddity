@@ -45,20 +45,29 @@ module.exports = function (grunt) {
     },
 
     exec: {
-      compiletemplate: `~/git/json-file-import/bin/jsonimport ${grunt.option("input")} > /tmp/tmpxxx.json ; json2yaml /tmp/tmpxxx.json > ${grunt.option("output")}`,
+      compiletemplate: clouddity.json2Yaml({grunt: grunt,
+          input: grunt.option('input'),
+          output: grunt.option('output')
+        }),
       version: clouddity.openstack.version(osOptions),
-      listservers: clouddity.openstack.listservers(osOptions),
-      listrouters: clouddity.openstack.listrouters(osOptions),
-      listsecuritygroups: clouddity.openstack.listsecuritygroups(osOptions),
-      listsecuritygrouprules: clouddity.openstack.listsecuritygrouprules(osOptions),
-      listflavors: clouddity.openstack.listflavors(osOptions),
-      listimages: clouddity.openstack.listimages(osOptions),
-      stackcreate: clouddity.openstack.stackcreate(osOptions),
-      heatversion: clouddity.heat.version(heatOptions)
+      listservers:
+        clouddity.openstack.listservers(osOptions),
+      listrouters:
+        clouddity.openstack.listrouters(osOptions),
+      listsecuritygroups:
+        clouddity.openstack.listsecuritygroups(osOptions),
+      listsecuritygrouprules:
+        clouddity.openstack.listsecuritygrouprules(osOptions),
+      listflavors:
+        clouddity.openstack.listflavors(osOptions),
+      listimages:
+        clouddity.openstack.listimages(osOptions),
+      stackcreate:
+        clouddity.openstack.stackcreate(osOptions),
+      heatversion:
+        clouddity.heat.version(heatOptions)
     }
   });
-
-  // XXX grunt exec:compiletemplate --input ./config/template.json --output /tmp/template.yaml
 
   grunt.registerTask('test', _.map(_.keys(grunt.config.get('exec')), (k) => {
     return 'exec:' + k;
