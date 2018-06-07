@@ -13,6 +13,7 @@
     "npm": ">= 6.0.x"
   },
   "dependencies": {
+    "awilix": "^3.0.8",
     "ejs": "^2.6.1",
     "grunt": "~1.0.x",
     "grunt-exec": "^3.0.0",

@@ -23,7 +23,7 @@ module.exports = function (grunt) {
     options: {},
     output: grunt.option('os-format') ? grunt.option('os-format') : "table",
     callback: (err, o, e) => {
-      if (grunt.option('verbose') || grunt.option('os-format')) {
+      if (grunt.option('verbose') || !grunt.option('quiet')) {
         grunt.log.writeln(`${o}`);
       }
     }
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
     options: {},
     output: grunt.option('os-format') ? grunt.option('os-format') : "table",
     callback: (err, o, e) => {
-      if (grunt.option('verbose') || grunt.option('os-format')) {
+      if (grunt.option('verbose') || !grunt.option('quiet')) {
         grunt.log.writeln(`${o}`);
       }
     }
@@ -64,6 +64,8 @@ module.exports = function (grunt) {
         clouddity.openstack.listimages(osOptions),
       stackcreate:
         clouddity.openstack.stackcreate(osOptions),
+      stackdelete:
+        clouddity.openstack.stackdelete(osOptions),
       heatversion:
         clouddity.heat.version(heatOptions)
     }

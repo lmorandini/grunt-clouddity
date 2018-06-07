@@ -29,5 +29,8 @@
   "stackcreate": [
     "stack create <%=options.stack_name%>",
     "--template <%=options.template%>"
+  ],
+  "stackdelete": [
+    "stack delete <%=options.stack_name%>"
   ]
 }

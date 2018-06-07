@@ -3,7 +3,12 @@
 const _ = require('underscore');
 const ejs = require('ejs');
 const os = require('os');
-const uniqueFilename = require('unique-filename')
+const uniqueFilename = require('unique-filename');
+const awilix = require('awilix');
+
+const container = awilix.createContainer({
+  injectionMode: awilix.InjectionMode.PROXY
+});
 
 /**
  * Openstack options that take the single dash
@@ -16,6 +21,13 @@ const openstackSingleDashOptions = require('./commands-templates/openstack-singl
  */
 const openstack_commands = require('./commands-templates/openstack-commands.json');
 const heat_commands = require('./commands-templates/heat-commands.json');
+
+/* XXX
+container.register({
+  userController: awilix.asClass(UserController)
+});
+container.resolve('userController');
+*/
 
 /**
  * Converts an array of obkects to double-dashed CLI options
@@ -63,11 +75,20 @@ const getGruntCLIOptions = (grunt) => {
   return _.object(keys, values)
 };
 
+/**
+ * Returns anGrunt exec command object that JSON into a YAML, with the possibility
+ * of using JSON import
+ * @param grunt {Object} Grunt object
+ * @param input {String} Input file name
+ * @param output {String} output file name
+ * @param callback {Function} Callback
+ * @returns {{command: (function(): string), stdout: boolean, callback: Function}}
+ */
 module.exports.json2Yaml = ({grunt, input, output, callback}) => {
   const f = uniqueFilename(os.tmpdir()) + '.json';
   return {
     command: () => {
-      console.log(`******* ~/git/json-file-import/bin/jsonimport ${input} > ${f} && json2yaml ${f} > ${output}`); // XXX
+      // FIXME: jsonimport should be added to the PATH
       return `~/git/json-file-import/bin/jsonimport ${input} > ${f} && json2yaml ${f} > ${output}`;
     },
     stdout: _.isUndefined(grunt.option('verbose')) ? false : grunt.option('verbose'),
@@ -124,11 +145,11 @@ module.exports.heat = _.mapObject(heat_commands,
  * @param callback {Function} Function to execute upon commmand termination
  * @returns {{cmd: (function(): string), stdout: boolean, callback: Function}}
  */
-const executeTask = ({grunt, client, obj, cmd, globalOptions, options = {}, output = 'table', callback}) => {
+const executeTask = ({grunt, client, obj, cmd, globalOptions, options = {}, output, callback}) => {
   let cmdString = [client].concat(
     optionsToCLISwitches({optionsArr: [globalOptions]})).concat(
     [obj, cmd]).concat(
-    optionsToCLISwitches({optionsArr: [options, {f: output}]}))
+    optionsToCLISwitches({optionsArr: [options, (output ? {f: output} : undefined)]}))
     .concat([grunt.option('verbose') ? '--debug' : '']).join(' ');
   cmdString = ejs.render(cmdString, {
     options: _.extend(_.extend(_.clone(options), globalOptions),
@@ -137,13 +158,12 @@ const executeTask = ({grunt, client, obj, cmd, globalOptions, options = {}, outp
 
   return {
     command: () => {
+      grunt.log.ok(`${cmdString}`);
       return cmdString;
     },
     stdout: _.isUndefined(grunt.option('verbose')) ? false : grunt.option('verbose'),
     callback: _.isFunction(callback) ? callback :
       (error, stdout, stderr) => {
-        grunt.log.ok(`${cmdString}`);
-
         if (error) {
           grunt.log.error(error);
         } else {

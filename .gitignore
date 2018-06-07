@@ -46,5 +46,4 @@ tmp
 # WebStorm
 .idea/
 /test/secrets.json
-/test/config/swarm-config.json
 /package-lock.json
