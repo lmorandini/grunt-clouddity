@@ -13,7 +13,7 @@ Print some information on the images available on the cloud provider.
 ## Installation
 
 
-## Task generic paramters
+## Task generic parameters
 
 * `--verbose` Prints debug information
 * `--quiet` Avoids printing the command 
@@ -25,6 +25,12 @@ Print some information on the images available on the cloud provider.
 ```
 grunt exec:compiletemplate --input=./config/template.json --output=/tmp/tmpxxx.yaml
 grunt exec:stackcreate --stack_name=test1 --template=/tmp/tmpxxx.yaml
+```
+
+
+## Deletion of a stack
+
+```
 grunt exec:stackdelete --stack_name=test1 --template=/tmp/tmpxxx.yaml
 ```
 
