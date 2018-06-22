@@ -167,6 +167,19 @@ module.exports = function(grunt) {
                 images : [ "apache", "consul" ],
                 // Test cases to execute to check the deployment success
                 test : [
+                  {
+                    name : "GetCapabilities",
+                    auth : grunt.sensitiveConfig.test.auth,
+                    protocol : "http",
+                    port : 80,
+                    path : "/wfs",
+                    query : {
+                      request : "GetCapabilities",
+                      version : "1.1.0",
+                      service : "wfs"
+                    },
+                    shouldReturnStatus : 200
+                  },
                     {
                       name : "GetCapabilities",
                       auth : grunt.sensitiveConfig.test.auth,
