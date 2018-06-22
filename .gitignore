@@ -36,6 +36,8 @@ node_modules
 # Sensitive information
 sensitive.json
 
+/package-lock.json
+
 # Temporary files
 tmp
 
