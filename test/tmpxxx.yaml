@@ -1,0 +1,131 @@
+---
+  heat_template_version: "pike"
+  description: "Simple template to deploy a Docker Swarm cluster"
+  resources: 
+    docker_master:
+      type: "OS::Nova::Server"
+      properties:
+        key_name: "lmorandiniATvaneyck2"
+        image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
+#        image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
+        flavor: "m2.small"
+#        user_data_format: "RAW"
+#        user_data:
+#          get_file: "/home/lmorandini/git/grunt-clouddity/test/config/instance_user_data.sh"
+        networks:
+          - port:
+              get_resource: "swarm_master_port"
+#          -
+#            network: "melbourne"
+#          -
+#            network:
+#              get_resource: "swarm_network"
+#        security_groups:
+#          - "default"
+#          -
+#            get_resource: "master_securitygroup"
+#          -
+#            get_resource: "swarm_securitygroup"
+    docker_worker:
+      type: "OS::Heat::ResourceGroup"
+      properties:
+        count: 1
+        resource_def:
+          type: "OS::Nova::Server"
+          properties:
+            key_name: "lmorandiniATvaneyck2"
+#        image: "d6929048-3a81-4bf7-b5ef-d69bd67219ba"
+            image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
+            flavor: "m2.small"
+#            user_data_format: "RAW"
+#            user_data:
+#              get_file: "/home/lmorandini/git/grunt-clouddity/test/config/instance_user_data.sh"
+            networks:
+              -
+                network:
+                  get_resource: "swarm_network"
+#            security_groups:
+#              - "default"
+#              -
+#                get_resource: "swarm_securitygroup"
+    swarm_network:
+      type: "OS::Neutron::Net"
+    swarm_subnet:
+      type: "OS::Neutron::Subnet"
+      properties: 
+        network: 
+          get_resource: "swarm_network"
+        ip_version: 4
+        dns_nameservers: 
+          - "115.146.81.148"
+          - "115.146.83.183"
+        cidr: "10.0.2.0/24"
+        gateway_ip: "10.0.2.1"
+    swarm_router:
+      type: "OS::Neutron::Router"
+      properties: 
+        external_gateway_info:
+          network: "melbourne"
+#          external_fixed_ips:
+#            - get_attr: [docker_master, networks, net0, 0]
+    swarm_router_interface:
+      type: "OS::Neutron::RouterInterface"
+      properties: 
+        router_id: 
+          get_resource: "swarm_router"
+        subnet_id: 
+          get_resource: "swarm_subnet"
+    swarm_master_port:
+      type: "OS::Neutron::Port"
+      properties:
+        network_id:
+          get_resource: "swarm_network"
+        fixed_ips:
+          - subnet_id:
+              get_resource: "swarm_subnet"
+            ip_address: "10.0.2.2"
+        security_groups:
+          - "default"
+          -
+            get_resource: "master_securitygroup"
+          -
+            get_resource: "swarm_securitygroup"
+    docker_floating_ip:
+      type: "OS::Neutron::FloatingIP"
+      depends_on: "swarm_router_interface"
+      properties:
+        floating_network_id: "melbourne"
+        port_id:
+          get_resource: "swarm_master_port"
+    swarm_worker_port:
+      type: "OS::Neutron::Port"
+      properties:
+        network_id:
+          get_resource: "swarm_network"
+        fixed_ips:
+          - subnet_id:
+              get_resource: "swarm_subnet"
+        security_groups:
+          - "default"
+          -
+            get_resource: "swarm_securitygroup"
+    master_securitygroup:
+      type: "OS::Neutron::SecurityGroup"
+      properties:
+        rules:
+          - remote_ip_prefix: "0.0.0.0/0"
+            protocol: "tcp"
+            port_range_min: 2377
+            port_range_max: 2377
+    swarm_securitygroup:
+      type: "OS::Neutron::SecurityGroup"
+      properties:
+        rules:
+          - remote_ip_prefix: "10.0.2.0/24"
+            protocol: "tcp"
+            port_range_min: 1
+            port_range_max: 65535
+          - remote_ip_prefix: "10.0.2.0/24"
+            protocol: "udp"
+            port_range_min: 1
+            port_range_max: 65535

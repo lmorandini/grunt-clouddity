@@ -17,7 +17,7 @@
     "ejs": "^2.6.1",
     "grunt": "~1.0.x",
     "grunt-exec": "^3.0.0",
-    "json-file-import": "github:lmoran/json-file-import#master",
+    "json-file-import": "github:lmoran/json-file-import#v0.2.0",
     "underscore": "~1.9.x",
     "unique-filename": "^1.1.0",
     "yamljs": "^0.3.0"

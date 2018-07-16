@@ -2,6 +2,10 @@
   "version": [
     "--version"
   ],
+  "listnetworks": [
+    "network",
+    "list"
+  ],
   "listservers": [
     "server",
     "list --project-domain <%= options['os-project-name'] %>"
@@ -26,11 +30,23 @@
     "image",
     "list --public --sort id --status active"
   ],
-  "stackcreate": [
+  "liststacks": [
+    "stack",
+    "list"
+  ],
+  "showstack": [
+    "stack",
+    "show <%=options.stack_name%>"
+  ],
+  "liststackresources": [
+    "stack",
+    "resource list <%=options.stack_name%>"
+  ],
+  "createstack": [
     "stack create <%=options.stack_name%>",
     "--template <%=options.template%>"
   ],
-  "stackdelete": [
+  "deletestack": [
     "stack delete <%=options.stack_name%>"
   ]
 }

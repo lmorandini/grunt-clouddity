@@ -50,6 +50,8 @@ module.exports = function (grunt) {
           output: grunt.option('output')
         }),
       version: clouddity.openstack.version(osOptions),
+      listnetworks:
+        clouddity.openstack.listnetworks(osOptions),
       listservers:
         clouddity.openstack.listservers(osOptions),
       listrouters:
@@ -62,10 +64,16 @@ module.exports = function (grunt) {
         clouddity.openstack.listflavors(osOptions),
       listimages:
         clouddity.openstack.listimages(osOptions),
-      stackcreate:
-        clouddity.openstack.stackcreate(osOptions),
-      stackdelete:
-        clouddity.openstack.stackdelete(osOptions),
+      liststacks:
+        clouddity.openstack.liststacks(osOptions),
+      liststackresources:
+        clouddity.openstack.liststackresources(osOptions),
+      showstack:
+        clouddity.openstack.showstack(osOptions),
+      createstack:
+        clouddity.openstack.createstack(osOptions),
+      deletestack:
+        clouddity.openstack.deletestack(osOptions),
       heatversion:
         clouddity.heat.version(heatOptions)
     }

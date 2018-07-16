@@ -11,6 +11,12 @@ const container = awilix.createContainer({
 });
 
 /**
+ * Commands that have the output option
+ * @type {string[]}
+ */
+const commandsOutput = require('./commands-templates/commands-output.json');
+
+/**
  * Openstack options that take the single dash
  * @type {string[]}
  */
@@ -30,7 +36,7 @@ container.resolve('userController');
 */
 
 /**
- * Converts an array of obkects to double-dashed CLI options
+ * Converts an array of objects to double-dashed CLI options
  * (unless options are listed as sungle-dash options array)
  *
  * @param optionsArr {Array} Array of Objects option names and values
@@ -89,7 +95,7 @@ module.exports.json2Yaml = ({grunt, input, output, callback}) => {
   return {
     command: () => {
       // FIXME: jsonimport should be added to the PATH
-      return `~/git/json-file-import/bin/jsonimport ${input} > ${f} && json2yaml ${f} > ${output}`;
+      return `../node_modules/json-file-import/bin/jsonimport ${input} > ${f} && json2yaml ${f} > ${output}`;
     },
     stdout: _.isUndefined(grunt.option('verbose')) ? false : grunt.option('verbose'),
     callback: _.isFunction(callback) ? callback :
@@ -149,7 +155,7 @@ const executeTask = ({grunt, client, obj, cmd, globalOptions, options = {}, outp
   let cmdString = [client].concat(
     optionsToCLISwitches({optionsArr: [globalOptions]})).concat(
     [obj, cmd]).concat(
-    optionsToCLISwitches({optionsArr: [options, (output ? {f: output} : undefined)]}))
+    optionsToCLISwitches({optionsArr: [options, ((output && commandsOutput.includes(cmd.split(" ")[0])) ? {f: output} : undefined)]}))
     .concat([grunt.option('verbose') ? '--debug' : '']).join(' ');
   cmdString = ejs.render(cmdString, {
     options: _.extend(_.extend(_.clone(options), globalOptions),
