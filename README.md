@@ -33,7 +33,7 @@ Print some information on the images available on the cloud provider.
 
 ```
 cd test
-grunt exec:compiletemplate --input=./config/template.json --output=/tmp/tmpxxx.yaml
+grunt exec:compiletemplate --input=./config/template.json --output=/tmp/tmpxxx.yaml && \
 grunt exec:createstack --stack_name=test1 --template=/tmp/tmpxxx.yaml
 ```
 

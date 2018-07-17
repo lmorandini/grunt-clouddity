@@ -1,8 +1,15 @@
 {
   "cluster": {
-    "name": "oaswarm",
-    "public-network-id": "@import!secrets.json#os-network",
-    "master-userdata": "#!/bin/bash; apt-get update apt-get -y upgrade; apt-get install -y wget software-properties-common;  wget -q https://test.docker.com/ -O /root/install_docker.sh ; chmod 755 /root/install_docker.sh ;  /bin/bash /root/install_docker.sh ;  docker swarm init --listen-addr 0.0.0.0:2377"
+    "master-userdata": "#!/bin/bash; apt-get update apt-get -y upgrade; apt-get install -y wget software-properties-common;  wget -q https://test.docker.com/ -O /root/install_docker.sh ; chmod 755 /root/install_docker.sh ;  /bin/bash /root/install_docker.sh ;  docker swarm init --listen-addr 0.0.0.0:2377",
+    "gateway-ip": "10.0.2.1",
+    "master-ip": "10.0.2.2",
+    "subnet-cidr": "10.0.2.0/24",
+    "nameservers": [
+      "115.146.81.148",
+      "115.146.83.183"
+    ],
+    "workers-count": 1,
+    "worker-ip": "10.0.2.4"
   },
   "counts": {
     "master-count": 1,

@@ -47,3 +47,4 @@ tmp
 .idea/
 /test/secrets.json
 /package-lock.json
+/test/config/secrets.json

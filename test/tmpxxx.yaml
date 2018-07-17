@@ -7,25 +7,11 @@
       properties:
         key_name: "lmorandiniATvaneyck2"
         image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
-#        image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
         flavor: "m2.small"
-#        user_data_format: "RAW"
-#        user_data:
-#          get_file: "/home/lmorandini/git/grunt-clouddity/test/config/instance_user_data.sh"
         networks:
-          - port:
+          -
+            port:
               get_resource: "swarm_master_port"
-#          -
-#            network: "melbourne"
-#          -
-#            network:
-#              get_resource: "swarm_network"
-#        security_groups:
-#          - "default"
-#          -
-#            get_resource: "master_securitygroup"
-#          -
-#            get_resource: "swarm_securitygroup"
     docker_worker:
       type: "OS::Heat::ResourceGroup"
       properties:
@@ -34,20 +20,12 @@
           type: "OS::Nova::Server"
           properties:
             key_name: "lmorandiniATvaneyck2"
-#        image: "d6929048-3a81-4bf7-b5ef-d69bd67219ba"
             image: "90be8b7a-a658-4b48-b8a9-94088cbe1094"
             flavor: "m2.small"
-#            user_data_format: "RAW"
-#            user_data:
-#              get_file: "/home/lmorandini/git/grunt-clouddity/test/config/instance_user_data.sh"
             networks:
               -
                 network:
                   get_resource: "swarm_network"
-#            security_groups:
-#              - "default"
-#              -
-#                get_resource: "swarm_securitygroup"
     swarm_network:
       type: "OS::Neutron::Net"
     swarm_subnet:
@@ -66,8 +44,6 @@
       properties: 
         external_gateway_info:
           network: "melbourne"
-#          external_fixed_ips:
-#            - get_attr: [docker_master, networks, net0, 0]
     swarm_router_interface:
       type: "OS::Neutron::RouterInterface"
       properties: 
