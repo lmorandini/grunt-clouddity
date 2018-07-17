@@ -48,3 +48,4 @@ tmp
 /test/secrets.json
 /package-lock.json
 /test/config/secrets.json
+!/test/config/secrets.json
