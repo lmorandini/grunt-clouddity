@@ -1,3 +1,7 @@
+/**
+ * Grunt tasks to deploy on a cluster
+ */
+
 'use strict';
 
 const _ = require('underscore');
@@ -5,7 +9,6 @@ const ejs = require('ejs');
 const os = require('os');
 const path = require('path');
 const awilix = require('awilix');
-
 const container = awilix.createContainer({
   injectionMode: awilix.InjectionMode.PROXY
 });
@@ -14,19 +17,76 @@ const container = awilix.createContainer({
  * Commands that have the output option
  * @type {string[]}
  */
-const commandsOutput = require('./tasks/commands-templates/commands-output.json');
+const commandsOutput = require('./commands-templates/commands-output.json');
 
 /**
  * Openstack options that take the single dash
  * @type {string[]}
  */
-const openstackSingleDashOptions = require('./tasks/commands-templates/openstack-singledash.json');
+const openstackSingleDashOptions = require('./commands-templates/openstack-singledash.json');
 
 /**
  * Options for different OpenStack clients
  */
-const openstack_commands = require('./tasks/commands-templates/openstack-commands.json');
-const heat_commands = require('./tasks/commands-templates/heat-commands.json');
+const openstack_commands = require('./commands-templates/openstack-commands.json');
+const heat_commands = require('./commands-templates/heat-commands.json');
+const commands = [];
+
+module.exports = function (grunt) {
+
+  // Processes the given command with arg.
+  const processCommand = function (command, options, arg) {
+    if (!arg) {
+      arg = 'default';
+    }
+    console.log(`********** processCommand command ${command}`); // XXX
+    console.log(`********** processCommand options ${JSON.stringify(options)}`); // XXX
+    console.log(`********** processCommand arg ${JSON.stringify(arg)}`); // XXX
+
+    if (!commands[command]) {
+      grunt.fail.fatal('Command [' + command + '] not found.');
+    }
+
+    // Checks arg
+    if (typeof (commands[command]) !== 'function') {
+      if (!commands[command][arg]) {
+        grunt.fail.fatal('Argument [' + arg + '] for [' + command
+          + '] not found.');
+      }
+    }
+
+    var func = (arg) ? commands[command][arg] : commands[command];
+    if (!func) {
+      func = commands[command]; // fallback to the main function
+    }
+
+    const done = this.async();
+
+    const callback = function (e) {
+      if (e) {
+        grunt.fail.warn(e);
+      }
+      done();
+    };
+
+    // Passes clients configuration parameters
+    func.apply(this, [grunt, options, callback, arg]);
+  };
+
+  // For each command, creates the grunt task
+  _.keys(commands).forEach(
+    function (command) {
+      console.log(`************** ${command}`); // XXX
+      grunt.task.registerTask('clouddity:' + command, function (arg) {
+        processCommand.apply(this, [command, grunt.config.get('clouddity'),
+          arg]);
+      });
+    });
+
+  // Registers the Grunt multi task
+  grunt.registerMultiTask('clouddity', 'Grunt tasks to deploy on a cluster',
+    processCommand);
+};
 
 /* XXX
 container.register({
@@ -90,8 +150,15 @@ const getGruntCLIOptions = (grunt) => {
  * @param callback {Function} Callback
  * @returns {{command: (function(): string), stdout: boolean, callback: Function}}
  */
-module.exports.compileTemplate = ({grunt, input, output, callback}) => {
+//commands['compileTemplate'] = ({grunt, input, output, callback}) => {
+commands['compileTemplate'] = ({grunt, options, callback}) => {
+
+  const input = grunt.option('input');
+  const output = grunt.option('output');
+  console.log(`********** input ${input}`); // XXX
+  console.log(`********** options ${JSON.stringify(options)}`); // XXX
   const tpl = path.resolve(input);
+  console.log(`********** tpl ${tpl}`); // XXX
   return {
     command: () => {
       // FIXME: jsonimport should be added to the PATH
