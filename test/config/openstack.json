@@ -9,7 +9,9 @@
       "115.146.83.183"
     ],
     "workers-count": 1,
-    "worker-ip": "10.0.2.4"
+    "worker-ip": "10.0.2.4",
+    "worker-ip-start": "10.0.2.16",
+    "worker-ip-end": "10.0.2.64"
   },
   "counts": {
     "master-count": 1,

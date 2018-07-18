@@ -1,11 +1,11 @@
 {
-  "heat_template_version": "@import!openstack.json#heat.version",
+  "heat_template_version": "pike",
   "description": "Simple template to deploy a single compute instance",
   "resources": {
     "docker_master": {
       "type": "OS::Nova::Server",
       "properties": {
-        "key_name": "@import!secrets.json#keypair",
+        "key_name": "lmorandiniATvaneyck2",
         "image": "90be8b7a-a658-4b48-b8a9-94088cbe1094",
         "flavor": "m2.small",
         "networks": [
@@ -20,11 +20,11 @@
     "docker_worker": {
       "type": "OS::Heat::ResourceGroup",
       "properties": {
-        "count": "@import!openstack.json#cluster.workers-count",
+        "count": 1,
         "resource_def": {
           "type": "OS::Nova::Server",
           "properties": {
-            "key_name": "@import!secrets.json#keypair",
+            "key_name": "lmorandiniATvaneyck2",
             "image": "90be8b7a-a658-4b48-b8a9-94088cbe1094",
             "flavor": "m2.small",
             "networks": [
@@ -47,16 +47,25 @@
         "network": {
           "get_resource": "swarm_network"
         },
-        "dns_nameservers": "@import!openstack.json#cluster.nameservers",
-        "cidr": "@import!openstack.json#cluster.subnet-cidr",
-        "gateway_ip": "@import!openstack.json#cluster.gateway-ip"
+        "dns_nameservers": [
+          "115.146.81.148",
+          "115.146.83.183"
+        ],
+        "cidr": "10.0.2.0/24",
+        "gateway_ip": "10.0.2.1",
+        "allocation_pools": [
+          {
+            "start": "10.0.2.16",
+            "end": "10.0.2.64"
+          }
+        ]
       }
     },
     "swarm_router": {
       "type": "OS::Neutron::Router",
       "properties": {
         "external_gateway_info": {
-          "network": "@import!secrets.json#os-network"
+          "network": "melbourne"
         }
       }
     },
@@ -77,14 +86,6 @@
         "network_id": {
           "get_resource": "swarm_network"
         },
-        "fixed_ips": [
-          {
-            "subnet_id": {
-              "get_resource": "swarm_subnet"
-            },
-            "ip_address": "@import!openstack.json#cluster.master-ip"
-          }
-        ],
         "security_groups": [
           "default",
           {
@@ -106,8 +107,7 @@
           {
             "subnet_id": {
               "get_resource": "swarm_subnet"
-            },
-            "ip_address": "@import!openstack.json#cluster.worker-ip"
+            }
           }
         ],
         "security_groups": [
@@ -122,7 +122,7 @@
       "type": "OS::Neutron::FloatingIP",
       "depends_on": "swarm_router_interface",
       "properties": {
-        "floating_network_id": "@import!secrets.json#os-network",
+        "floating_network_id": "melbourne",
         "port_id": {
           "get_resource": "swarm_master_port"
         }
@@ -154,13 +154,11 @@
             "protocol": "icmp"
           },
           {
-            "remote_ip_prefix": "@import!openstack.json#cluster.subnet-cidr",
             "protocol": "tcp",
             "port_range_min": 1,
             "port_range_max": 65535
           },
           {
-            "remote_ip_prefix": "@import!openstack.json#cluster.subnet-cidr",
             "protocol": "udp",
             "port_range_min": 1,
             "port_range_max": 65535
