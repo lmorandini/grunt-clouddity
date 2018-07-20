@@ -10,23 +10,6 @@ const openstackConfig = jsonFileImport.load(path.join(__dirname,
 const secretsConfig = jsonFileImport.load(path.join(__dirname,
   'secrets.json'));
 const config = {heat: heatConfig, openstack: openstackConfig, secrets: secretsConfig};
-const ipRange = (startIp, count, subnet) => {
-  const t = startIp.split('.');
-  const s = Number(t[3]);
-  const a = [];
-  for (let i = 0; i < count; i++) {
-    const ip = `${t[0]}.${t[1]}.${t[2]}`;
-    a.push({
-        subnet_id: {
-          get_resource: `${subnet}`
-        }
-//        ,
-//        ip_address: `${ip}.${i + s}`
-      }
-    );
-  }
-  return a;
-};
 
 const template = {
     heat_template_version: config.openstack.heat.version,
@@ -59,9 +42,17 @@ const template = {
               flavor: 'm2.small',
               networks: [
                 {
-                  port: {
-                    get_resource: 'swarm_worker_port'
+                  network: {
+                    get_resource: 'swarm_network'
+                  },
+                  subnet: {
+                    get_resource: 'swarm_subnet'
                   }
+                }],
+              security_groups: [
+                'default',
+                {
+                  get_resource: 'swarm_securitygroup'
                 }
               ]
             }
@@ -82,8 +73,8 @@ const template = {
           gateway_ip: config.openstack.cluster['gateway-ip'],
           allocation_pools: [
             {
-              start: config.openstack.cluster['worker-ip-start'],
-              end: config.openstack.cluster['worker-ip-end']
+              start: config.openstack.cluster['workers-ip'].start,
+              end: config.openstack.cluster['workers-ip'].end
             }]
         }
       },
@@ -116,30 +107,6 @@ const template = {
           security_groups: [
             'default',
             {
-              get_resource: 'master_securitygroup'
-            },
-            {
-              get_resource: 'swarm_securitygroup'
-            }
-          ]
-        }
-      },
-      swarm_worker_port: {
-        type: 'OS::Neutron::Port',
-        properties: {
-          network_id: {
-            get_resource: 'swarm_network'
-          },
-          fixed_ips:
-            [{
-              subnet_id: {
-                get_resource: 'swarm_subnet'
-              }
-            }],
-//            ipRange(config.openstack.cluster['worker-ip-start'], config.openstack.cluster['workers-count'], 'swarm_subnet'),
-          security_groups: [
-            'default',
-            {
               get_resource: 'swarm_securitygroup'
             }
           ]
@@ -155,36 +122,17 @@ const template = {
           }
         }
       },
-      master_securitygroup: {
-        type: 'OS::Neutron::SecurityGroup',
-        properties:
-          {
-            rules: [
-              {
-                remote_ip_prefix: '0.0.0.0/0',
-                protocol: 'icmp'
-              },
-              {
-                remote_ip_prefix: '0.0.0.0/0',
-                protocol: 'tcp',
-                port_range_min: 2377,
-                port_range_max: 2377
-              }
-            ]
-          }
-      }
-      ,
       swarm_securitygroup: {
         type: 'OS::Neutron::SecurityGroup',
         properties:
           {
             rules: [
               {
-                remote_ip_prefix: '0.0.0.0/0',
+                remote_ip_prefix: config.openstack.cluster['subnet-cidr'],
                 protocol: 'icmp'
               },
               {
-                remote_ip_prefix: config.openstack['cluster.subnet-cidr'],
+                remote_ip_prefix: config.openstack.cluster['subnet-cidr'],
                 protocol: 'tcp',
                 port_range_min: 1,
                 port_range_max: 65535

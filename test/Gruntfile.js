@@ -2,6 +2,7 @@
 
 const _ = require('underscore');
 const path = require('path');
+const fs = require('fs');
 const jsonFileImport = require('json-file-import');
 const clouddity = require('../index.js');
 
@@ -23,6 +24,9 @@ module.exports = function (grunt) {
     options: {},
     output: grunt.option('os-format') ? grunt.option('os-format') : "table",
     callback: (err, o, e) => {
+      if (grunt.option('output')) {
+        fs.writeFileSync(grunt.option('output'), `${o}`);
+      }
       if (grunt.option('verbose') || !grunt.option('quiet')) {
         grunt.log.writeln(`${o}`);
       }
@@ -33,6 +37,9 @@ module.exports = function (grunt) {
     options: {},
     output: grunt.option('os-format') ? grunt.option('os-format') : "table",
     callback: (err, o, e) => {
+      if (grunt.option('output')) {
+        fs.writeFileSync(grunt.option('output'), `${o}`);
+      }
       if (grunt.option('verbose') || !grunt.option('quiet')) {
         grunt.log.writeln(`${o}`);
       }
@@ -74,6 +81,8 @@ module.exports = function (grunt) {
         clouddity.openstack.createstack(osOptions),
       deletestack:
         clouddity.openstack.deletestack(osOptions),
+      liststacknodes:
+        clouddity.openstack.liststacknodes(osOptions),
       heatversion:
         clouddity.heat.version(heatOptions)
     }
