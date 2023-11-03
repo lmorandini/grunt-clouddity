@@ -48,5 +48,9 @@
   ],
   "deletestack": [
     "stack delete <%=options.stack_name%>"
+  ],
+  "liststacknodes": [
+    "cluster node",
+    "list --cluster <%=options.stack_name%>"
   ]
 }

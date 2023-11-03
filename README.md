@@ -58,3 +58,25 @@ grunt exec:listservers
 
 `npm test`
 
+
+### Creation a of Docker Swarm
+
+```
+sudo docker swarm init --advertise-addr 103.6.252.46
+
+ssh -f ubuntu@103.6.252.46 -L 2000:10.0.2.21:22 -N
+ssh -p 2000 ubuntu@localhost
+
+sudo docker swarm join \
+ --token SWMTKN-1-38vui4cwmmdyhudp91e8eqn5wvoyhf5cq0gdh3o9x3bx6n05f7-716orf09uzl7dq75rkan788bk \
+ 103.6.252.46:2377
+
+
+export IMAGE_NAME=httpd:latest
+export SERVICE_NAME=httpd
+sudo docker service create --replicas 3 --name ${SERVICE_NAME} --publish 80:80 ${IMAGE_NAME} 
+sudo docker service ls
+sudo docker service ps ${SERVICE_NAME}
+sudo docker service inspect ${SERVICE_NAME}
+sudo docker service rm ${SERVICE_NAME}
+```
